@@ -1,124 +1,190 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Compass, Activity, Database, Waves, ShieldCheck, Sparkles, MapPin, Gauge } from 'lucide-react';
+import {
+  ArrowRight,
+  Compass,
+  Activity,
+  Database,
+  Waves,
+  Sparkles,
+  MapPin,
+  Gauge,
+  Radio,
+  Satellite,
+  ChevronRight,
+  Terminal,
+  Cpu,
+  Layers,
+  ShieldAlert,
+} from 'lucide-react';
 
 export default function Hero() {
+  const [selectedBasin, setSelectedBasin] = useState('argo');
+
   const scrollToFeatures = () => {
     const el = document.getElementById('features');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background Ocean Image with Multi-layer Gradient Overlays */}
+    <section className="relative min-h-screen flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background Image: High-Definition Ocean ARGO Float & Marine Life */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transform duration-1000 ease-out"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=2400&q=80')`,
+          backgroundImage: `url('/hero-ocean-argo.jpg')`,
         }}
       >
-        {/* Deep blue ocean gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#020b18]/90 via-[#03122b]/80 to-[#020b18] mix-blend-multiply" />
-        <div className="absolute inset-0 bg-radial from-cyan-600/15 via-transparent to-[#020b18]/95" />
-        <div className="absolute inset-0 bg-depth-grid opacity-30" />
+        {/* Layered Gradient Overlays for Guaranteed Text Legibility & Depth */}
+        {/* Top bar vignette for navbar contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/90 via-[#020617]/40 to-[#020617]" />
+        {/* Left side soft darkening for headline readability while keeping right-side float & whales visible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/95 via-[#020617]/65 to-transparent sm:w-3/4" />
+        {/* Bottom smooth fade to merge into the next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020617] to-transparent" />
       </div>
 
-      {/* Floating Ambient Glow Orbs */}
-      <div className="absolute top-1/4 left-1/10 w-96 h-96 bg-cyan-500/15 rounded-full blur-[120px] pointer-events-none animate-pulse-subtle" />
-      <div className="absolute bottom-1/4 right-1/10 w-96 h-96 bg-blue-600/15 rounded-full blur-[120px] pointer-events-none animate-pulse-subtle" style={{ animationDelay: '3s' }} />
-
-      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
-        {/* Pill Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-400/30 text-cyan-300 text-xs sm:text-sm font-medium mb-8 backdrop-blur-md shadow-lg shadow-cyan-950/50 hover:border-cyan-400/60 transition-colors">
-          <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-          <span className="flex h-2 w-2 rounded-full bg-cyan-400 -ml-4" />
-          <span className="font-semibold text-cyan-200">Global ARGO Array Active:</span>
-          <span className="text-slate-300">Over 3,900 autonomous floats reporting live</span>
-        </div>
-
-        {/* Main Heading */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] font-['Outfit',sans-serif] mb-6">
-          Explore Our Oceans. <br />
-          <span className="text-gradient-ocean">Understand Our Planet.</span>
-        </h1>
-
-        {/* Subheading */}
-        <p className="max-w-3xl text-lg sm:text-xl text-slate-300 leading-relaxed font-normal mb-10">
-          An AI-powered platform that transforms complex oceanographic data into meaningful insights. 
-          Explore ocean conditions, visualize ARGO observations, and discover how our oceans are changing.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-14">
-          <Link
-            to="/signup"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-xl shadow-cyan-500/25 hover:shadow-cyan-400/40 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
-          >
-            <span>Start Exploring</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-          <button
-            onClick={scrollToFeatures}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold text-slate-200 bg-[#071937]/80 hover:bg-[#0c244d] border border-cyan-500/30 hover:border-cyan-400/60 backdrop-blur-md transition-all duration-200"
-          >
-            <Compass className="w-4 h-4 text-cyan-400" />
-            <span>Discover FloatChat</span>
-          </button>
-        </div>
-
-        {/* Real-time Telemetry Showcase Card */}
-        <div className="w-full max-w-4xl rounded-2xl p-4 sm:p-5 bg-[#06152d]/80 border border-cyan-500/20 backdrop-blur-xl shadow-2xl shadow-cyan-950/50">
-          <div className="flex items-center justify-between pb-3 mb-3 border-b border-cyan-500/15 text-xs text-slate-400">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="font-mono text-cyan-300 uppercase tracking-wider font-semibold">ARGO Float WMO #2902634 Live Profile</span>
-            </div>
-            <span className="hidden sm:inline font-mono text-slate-400">Indian Ocean Basin [12.4°S, 75.8°E]</span>
+      {/* Floating telemetry HUD elements across the screen */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        {/* Left Column: Heading, Subtitle & Primary CTAs */}
+        <div className="lg:col-span-7 text-left space-y-6 pt-4">
+          {/* Top Live Status Pill */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-950/80 border border-cyan-400/40 text-cyan-300 text-xs sm:text-sm font-medium backdrop-blur-xl shadow-lg shadow-black/50">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-400" />
+            </span>
+            <span className="font-semibold text-white tracking-wide uppercase font-mono text-[11px]">
+              ARGO Float Array Active
+            </span>
+            <span className="text-slate-400 hidden sm:inline">•</span>
+            <span className="text-cyan-200 text-xs hidden sm:inline">Global CTD Telemetry Online</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-left">
-            <div className="bg-[#040e1f]/80 p-3 rounded-xl border border-cyan-500/10">
-              <div className="text-[11px] text-slate-400 font-medium flex items-center gap-1.5 mb-1">
-                <Gauge className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Surface Temp</span>
+          {/* Main Hero Heading */}
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.05] font-['Outfit',sans-serif] uppercase drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
+            Explore Our Oceans. <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-300 to-sky-400">
+              Understand Our Planet.
+            </span>
+          </h1>
+
+          {/* Subheading */}
+          <p className="max-w-xl text-base sm:text-lg text-slate-200/95 leading-relaxed font-normal drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+            An AI-Powered Oceanographic Data Discovery Platform — Translating ARGO Observations, Marine Ecosystem Health, and Climate Dynamics to Protect Our Living Seas.
+          </p>
+
+          {/* Depth Callout & Telemetry Snippet */}
+          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-cyan-300/90 py-1">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-cyan-500/20 backdrop-blur-md">
+              <Activity className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Depth: 0m to 2,000m</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950/70 border border-cyan-500/20 backdrop-blur-md">
+              <Radio className="w-3.5 h-3.5 text-teal-400" />
+              <span>ARGO Float Deployment #4902183</span>
+            </div>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+            <Link
+              to="/signup"
+              className="w-full sm:w-auto relative group inline-flex items-center justify-center p-0.5 rounded-2xl overflow-hidden shadow-2xl shadow-cyan-500/40 transition-transform active:scale-95"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-500 rounded-2xl group-hover:opacity-100 transition-opacity" />
+              <span className="relative w-full sm:w-auto px-8 py-4 rounded-[14px] bg-[#020617] group-hover:bg-opacity-0 text-white font-bold text-sm flex items-center justify-center gap-2.5 transition-all">
+                <span>Start Exploring</span>
+                <ArrowRight className="w-4 h-4 text-cyan-300 group-hover:text-white group-hover:translate-x-1 transition-all" />
+              </span>
+            </Link>
+
+            <button
+              onClick={scrollToFeatures}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-sm font-semibold text-slate-100 bg-slate-950/80 hover:bg-slate-900 border border-slate-700/80 hover:border-cyan-400/60 backdrop-blur-xl transition-all duration-300 shadow-xl shadow-black/60"
+            >
+              <Compass className="w-4 h-4 text-cyan-400" />
+              <span>Discover FloatChat</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Right Column: High-tech Scientific Glass HUD Overlay */}
+        <div className="lg:col-span-5 flex flex-col gap-4">
+          {/* Real-time Telemetry Glass Card */}
+          <div className="p-5 sm:p-6 rounded-3xl bg-[#030917]/80 border border-cyan-400/30 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] text-left relative overflow-hidden">
+            {/* Top Bar */}
+            <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-cyan-500/20 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
+                <span className="font-mono text-cyan-300 font-bold uppercase tracking-wider">
+                  Global Marine Health Monitoring
+                </span>
               </div>
-              <div className="text-lg sm:text-xl font-bold text-white font-mono">
-                28.64 <span className="text-xs text-cyan-300 font-sans">°C</span>
-              </div>
-              <div className="text-[10px] text-emerald-400 mt-0.5">+0.4°C seasonal baseline</div>
+              <span className="text-[11px] font-mono text-slate-400">Real-Time</span>
             </div>
 
-            <div className="bg-[#040e1f]/80 p-3 rounded-xl border border-cyan-500/10">
-              <div className="text-[11px] text-slate-400 font-medium flex items-center gap-1.5 mb-1">
-                <Waves className="w-3.5 h-3.5 text-sky-400" />
-                <span>Salinity (PSU)</span>
+            {/* Metric Tiles */}
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="p-3.5 rounded-2xl bg-slate-950/80 border border-cyan-500/15">
+                <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+                  <span>Surface Water Temp</span>
+                  <Gauge className="w-3.5 h-3.5 text-cyan-400" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  28.64 <span className="text-xs text-cyan-300 font-sans">°C</span>
+                </div>
+                <div className="text-[10px] text-teal-300 font-mono mt-0.5">+0.4°C baseline anomaly</div>
               </div>
-              <div className="text-lg sm:text-xl font-bold text-white font-mono">
-                35.18 <span className="text-xs text-sky-300 font-sans">PSU</span>
+
+              <div className="p-3.5 rounded-2xl bg-slate-950/80 border border-cyan-500/15">
+                <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+                  <span>Practical Salinity</span>
+                  <Waves className="w-3.5 h-3.5 text-sky-400" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  35.18 <span className="text-xs text-sky-300 font-sans">PSU</span>
+                </div>
+                <div className="text-[10px] text-slate-400 font-mono mt-0.5">Equatorial halocline</div>
               </div>
-              <div className="text-[10px] text-slate-400 mt-0.5">High salinity core at 150m</div>
+
+              <div className="p-3.5 rounded-2xl bg-slate-950/80 border border-cyan-500/15">
+                <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+                  <span>Profile Depth</span>
+                  <Activity className="w-3.5 h-3.5 text-indigo-400" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  2,000 <span className="text-xs text-indigo-300 font-sans">m</span>
+                </div>
+                <div className="text-[10px] text-indigo-300 font-mono mt-0.5">Bathypelagic threshold</div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-slate-950/80 border border-cyan-500/15">
+                <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
+                  <span>Dissolved Oxygen</span>
+                  <Database className="w-3.5 h-3.5 text-emerald-400" />
+                </div>
+                <div className="text-xl font-black text-white font-mono">
+                  4.82 <span className="text-xs text-emerald-300 font-sans">ml/L</span>
+                </div>
+                <div className="text-[10px] text-emerald-400 font-mono mt-0.5">Marine sanctuary safe</div>
+              </div>
             </div>
 
-            <div className="bg-[#040e1f]/80 p-3 rounded-xl border border-cyan-500/10">
-              <div className="text-[11px] text-slate-400 font-medium flex items-center gap-1.5 mb-1">
-                <Activity className="w-3.5 h-3.5 text-teal-400" />
-                <span>Profile Depth</span>
+            {/* Interactive AI Query simulation pill */}
+            <div className="p-3 rounded-xl bg-slate-950/90 border border-cyan-500/25 flex items-center justify-between text-xs">
+              <div className="flex items-center gap-2 truncate">
+                <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span className="font-mono text-cyan-200 truncate">
+                  "Analyze salinity anomalies in float #4902183"
+                </span>
               </div>
-              <div className="text-lg sm:text-xl font-bold text-white font-mono">
-                2,000 <span className="text-xs text-teal-300 font-sans">meters</span>
-              </div>
-              <div className="text-[10px] text-cyan-400 mt-0.5">Full bathypelagic cycle</div>
-            </div>
-
-            <div className="bg-[#040e1f]/80 p-3 rounded-xl border border-cyan-500/10">
-              <div className="text-[11px] text-slate-400 font-medium flex items-center gap-1.5 mb-1">
-                <Database className="w-3.5 h-3.5 text-blue-400" />
-                <span>Dissolved Oxygen</span>
-              </div>
-              <div className="text-lg sm:text-xl font-bold text-white font-mono">
-                4.82 <span className="text-xs text-blue-300 font-sans">mg/L</span>
-              </div>
-              <div className="text-[10px] text-emerald-400 mt-0.5">Healthy oxygen zone</div>
+              <Link
+                to="/signup"
+                className="text-cyan-400 hover:text-cyan-300 font-semibold shrink-0 ml-2"
+              >
+                Try AI ➔
+              </Link>
             </div>
           </div>
         </div>

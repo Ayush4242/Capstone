@@ -1,16 +1,13 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
-// Helper to generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || 'floatchat_default_secret_key_change_in_prod', {
     expiresIn: process.env.JWT_EXPIRES_IN || '30d',
   });
 };
 
-// @desc    Register a new user
-// @route   POST /api/auth/register
-// @access  Public
+
 export const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -38,7 +35,7 @@ export const register = async (req, res) => {
       });
     }
 
-    // Check existing
+    
     const existingUser = await User.findOne({ email: email.toLowerCase().trim() });
     if (existingUser) {
       return res.status(409).json({
@@ -47,7 +44,7 @@ export const register = async (req, res) => {
       });
     }
 
-    // Create user
+  
     const user = await User.create({
       name: name.trim(),
       email: email.toLowerCase().trim(),

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Waves, Menu, X, ArrowRight, User, LogOut, Compass, Sparkles } from 'lucide-react';
+import { Waves, Menu, X, ArrowRight, User, LogOut, Compass, Sparkles, Activity, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
@@ -12,13 +12,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -41,7 +36,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#030b1a]/90 backdrop-blur-md border-b border-cyan-500/20 py-3.5 shadow-xl shadow-cyan-950/20'
+          ? 'bg-[#020617]/85 backdrop-blur-xl border-b border-cyan-500/15 py-3 shadow-2xl shadow-cyan-950/40'
           : 'bg-transparent py-5'
       }`}
     >
@@ -49,54 +44,68 @@ export default function Navbar() {
         {/* Brand Logo */}
         <Link
           to="/"
-          className="flex items-center gap-3 group text-white hover:text-cyan-300 transition-colors"
+          className="flex items-center gap-3.5 group text-white transition-all"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-sky-500 to-blue-600 p-0.5 shadow-lg shadow-cyan-500/25 group-hover:shadow-cyan-400/40 transition-shadow">
-            <div className="w-full h-full bg-[#051329] rounded-[10px] flex items-center justify-center">
-              <Waves className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
+          <div className="relative">
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-400 opacity-60 blur-md group-hover:opacity-100 transition duration-500" />
+            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#0f172a] via-[#020617] to-[#042f2e] border border-cyan-400/40 flex items-center justify-center shadow-lg">
+              <Waves className="w-5 h-5 text-cyan-300 group-hover:rotate-6 transition-transform duration-300" />
             </div>
           </div>
+
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight font-['Outfit',sans-serif]">
-              Float<span className="text-cyan-400">Chat</span>
-            </span>
-            <span className="text-[10px] font-medium tracking-widest uppercase text-cyan-200/70 -mt-1">
-              Ocean Intelligence
+            <div className="flex items-center gap-1.5">
+              <span className="text-xl font-extrabold tracking-tight font-['Outfit',sans-serif] text-white">
+                Float<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-sky-400">Chat</span>
+              </span>
+              <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 font-semibold tracking-wider">
+                v1.2
+              </span>
+            </div>
+            <span className="text-[10px] font-medium tracking-widest uppercase text-slate-400 -mt-0.5">
+              AI Ocean Intelligence
             </span>
           </div>
         </Link>
 
+        {/* Global Live Ticker (Desktop) */}
+        <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/60 border border-slate-800 text-[11px] font-mono text-slate-300">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-slate-400">GLOBAL ARGO TELEMETRY:</span>
+          <span className="text-cyan-300 font-bold">3,942 ACTIVE PROFILES</span>
+        </div>
+
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
           <Link
             to="/"
-            className="hover:text-cyan-400 transition-colors relative py-1"
+            className="hover:text-cyan-300 transition-colors py-1 hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
           >
             Home
           </Link>
           <button
             onClick={() => handleNavClick('features')}
-            className="hover:text-cyan-400 transition-colors py-1 cursor-pointer"
+            className="hover:text-cyan-300 transition-colors py-1 cursor-pointer hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
           >
-            Features
+            Capabilities
+          </button>
+          <button
+            onClick={() => handleNavClick('argo-telemetry')}
+            className="hover:text-cyan-300 transition-colors py-1 cursor-pointer hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
+          >
+            ARGO Float Simulator
           </button>
           <button
             onClick={() => handleNavClick('about')}
-            className="hover:text-cyan-400 transition-colors py-1 cursor-pointer"
+            className="hover:text-cyan-300 transition-colors py-1 cursor-pointer hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
           >
             About
           </button>
           <button
             onClick={() => handleNavClick('mission')}
-            className="hover:text-cyan-400 transition-colors py-1 cursor-pointer"
+            className="hover:text-cyan-300 transition-colors py-1 cursor-pointer hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
           >
-            Our Mission
-          </button>
-          <button
-            onClick={() => handleNavClick('how-it-works')}
-            className="hover:text-cyan-400 transition-colors py-1 cursor-pointer"
-          >
-            Workflow
+            Mission
           </button>
         </nav>
 
@@ -106,12 +115,12 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <Link
                 to="/dashboard"
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-900/60 transition-colors text-xs font-medium"
+                className="relative group flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-950/80 to-blue-950/80 border border-cyan-400/40 text-cyan-300 hover:border-cyan-300 text-xs font-semibold shadow-lg shadow-cyan-950/50 transition-all hover:scale-105"
               >
-                <Compass className="w-3.5 h-3.5 text-cyan-400" />
+                <Compass className="w-4 h-4 text-cyan-400 group-hover:rotate-45 transition-transform" />
                 <span>Ocean Console</span>
               </Link>
-              <div className="flex items-center gap-2 pl-2 border-l border-slate-700">
+              <div className="flex items-center gap-2 pl-2 border-l border-slate-800">
                 <span className="text-xs text-slate-300 font-medium">
                   {user?.name?.split(' ')[0] || 'Researcher'}
                 </span>
@@ -128,15 +137,17 @@ export default function Navbar() {
             <>
               <Link
                 to="/login"
-                className="text-sm font-medium text-slate-300 hover:text-white px-3 py-2 transition-colors"
+                className="text-xs font-semibold text-slate-300 hover:text-white px-3.5 py-2 transition-colors tracking-wide"
               >
-                Login
+                Sign In
               </Link>
               <Link
                 to="/signup"
-                className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-semibold rounded-xl group bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all active:scale-95"
+                className="relative inline-flex items-center justify-center p-[1px] overflow-hidden rounded-xl font-semibold text-xs text-white group"
               >
-                <span className="relative px-4 py-2 transition-all ease-out bg-[#071731] rounded-[10px] group-hover:bg-transparent text-white flex items-center gap-2">
+                <span className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-500 rounded-xl group-hover:opacity-90 transition-opacity" />
+                <span className="relative px-4 py-2 transition-all ease-out bg-[#020617] rounded-[11px] group-hover:bg-opacity-0 flex items-center gap-2">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400 group-hover:text-white transition-colors" />
                   <span>Get Started</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </span>
@@ -149,7 +160,7 @@ export default function Navbar() {
         <div className="md:hidden flex items-center gap-2">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors"
+            className="p-2 rounded-xl text-slate-300 hover:text-white bg-slate-900/60 border border-slate-800"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -159,7 +170,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#051329]/95 backdrop-blur-xl border-b border-cyan-500/20 px-6 pt-4 pb-6 mt-3 space-y-4">
+        <div className="md:hidden bg-[#020617]/95 backdrop-blur-2xl border-b border-cyan-500/20 px-6 pt-4 pb-6 mt-3 space-y-4">
           <div className="flex flex-col space-y-3 text-base font-medium text-slate-200">
             <Link
               to="/"
@@ -172,7 +183,13 @@ export default function Navbar() {
               onClick={() => handleNavClick('features')}
               className="text-left py-1 hover:text-cyan-400"
             >
-              Features
+              Capabilities
+            </button>
+            <button
+              onClick={() => handleNavClick('argo-telemetry')}
+              className="text-left py-1 hover:text-cyan-400"
+            >
+              ARGO Float Simulator
             </button>
             <button
               onClick={() => handleNavClick('about')}
@@ -184,13 +201,7 @@ export default function Navbar() {
               onClick={() => handleNavClick('mission')}
               className="text-left py-1 hover:text-cyan-400"
             >
-              Our Mission
-            </button>
-            <button
-              onClick={() => handleNavClick('how-it-works')}
-              className="text-left py-1 hover:text-cyan-400"
-            >
-              Workflow
+              Mission
             </button>
           </div>
 
@@ -200,7 +211,7 @@ export default function Navbar() {
                 <Link
                   to="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-sm font-medium"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 text-sm font-semibold"
                 >
                   <Compass className="w-4 h-4" />
                   <span>Go to Ocean Console ({user?.name})</span>
@@ -210,7 +221,7 @@ export default function Navbar() {
                     logout();
                     setMobileMenuOpen(false);
                   }}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-slate-800/80 text-rose-400 text-sm font-medium"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-800/80 text-rose-400 text-sm font-medium"
                 >
                   <LogOut className="w-4 h-4" />
                   <span>Sign Out</span>
@@ -221,16 +232,16 @@ export default function Navbar() {
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-2.5 rounded-lg border border-slate-700 text-slate-200 font-medium text-sm"
+                  className="w-full text-center py-2.5 rounded-xl border border-slate-700 text-slate-200 font-semibold text-sm"
                 >
-                  Login
+                  Sign In
                 </Link>
                 <Link
                   to="/signup"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium text-sm shadow-lg shadow-cyan-500/20"
+                  className="w-full text-center py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-600 text-white font-semibold text-sm shadow-lg shadow-cyan-500/30"
                 >
-                  Get Started Free
+                  Create Researcher Account
                 </Link>
               </>
             )}
