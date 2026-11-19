@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    border-color: rgba(56, 189, 248, 0.12);
+  }
+
+  body {
+    background-color: #030b1a;
+    color: #e2e8f0;
+    overflow-x: hidden;
+  }
+
+  /* Custom subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #030b1a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #0f2e5a;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0284c7;
+  }
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(10, 25, 47, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(15, 35, 68, 0.85);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.2);
+}
+
+.glass-card-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(224, 242, 254, 0.8);
+}
+
+/* Ocean glow gradient text */
+.text-gradient-ocean {
+  background: linear-gradient(135deg, #e0f2fe 0%, #38bdf8 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #67e8f9 0%, #06b6d4 50%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Radial ocean background effect */
+.bg-ocean-radial {
+  background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.15) 0%, rgba(3, 11, 26, 0) 70%);
+}
+
+.bg-depth-grid {
+  background-image: 
+    linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Keyframes for subtle ocean wave animation */
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.03); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 6s ease-in-out infinite;
+}
