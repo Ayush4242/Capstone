@@ -1,82 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
-import FeatureCard from '../components/FeatureCard';
+import BentoGrid from '../components/BentoGrid';
 import ArgoSimulator from '../components/ArgoSimulator';
 import {
   MessageSquareCode,
-  Map,
-  History,
-  Wind,
-  CloudRain,
-  AlertTriangle,
-  ArrowRight,
   Database,
   Cpu,
   LineChart,
-  Layers,
   GraduationCap,
   Microscope,
   Anchor,
   FileCheck2,
   CheckCircle2,
   Sparkles,
-  Shield,
-  Activity,
+  ArrowRight,
 } from 'lucide-react';
 
 export default function Home() {
-  const coreFeatures = [
-    {
-      icon: MessageSquareCode,
-      title: 'AI Ocean Assistant',
-      description:
-        'Ask questions about ocean temperature, salinity, depth, and other biogeochemical parameters using natural language.',
-      badge: 'Conversational AI',
-      tag: 'Natural Language Query',
-    },
-    {
-      icon: Map,
-      title: 'Interactive ARGO Explorer',
-      description:
-        'Explore ocean observation floats through interactive geographical maps, trajectory tracking, and vertical profiles.',
-      badge: 'Spatial GIS',
-      tag: '4,000+ Floats Global Map',
-    },
-    {
-      icon: History,
-      title: 'Ocean Time Machine',
-      description:
-        'Explore historical changes in ocean conditions across different years, tracking warming trends and deep-sea shifts.',
-      badge: 'Temporal Modeling',
-      tag: '20+ Years Historical Data',
-    },
-    {
-      icon: Wind,
-      title: 'Oxygen Depletion Analysis',
-      description:
-        'Investigate low-oxygen regions, oceanic dead zones, and potential marine ecosystem risks under climate stress.',
-      badge: 'Biogeochemistry',
-      tag: 'Hypoxia & Marine Habitat Risk',
-    },
-    {
-      icon: CloudRain,
-      title: 'Ocean–Monsoon Analyzer',
-      description:
-        'Explore relationships between sea surface temperature, the Indian Ocean Dipole (IOD), and Indian monsoon rainfall patterns.',
-      badge: 'Climate Teleconnections',
-      tag: 'Monsoon Dynamics & IOD',
-    },
-    {
-      icon: AlertTriangle,
-      title: 'Ocean Anomaly Detection',
-      description:
-        'Identify unusual ocean temperature spikes, marine heatwaves, and abrupt salinity shifts with statistical anomaly models.',
-      badge: 'Extreme Events',
-      tag: 'Marine Heatwave Tracking',
-    },
-  ];
-
   const workflowSteps = [
     {
       step: '01',
@@ -137,14 +78,17 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#020617] text-slate-100">
-      {/* Hero Section with User's Uploaded ARGO & Marine Life Imagery */}
+      {/* Hero Section with High-Resolution ARGO Float & Marine Life Background */}
       <Hero />
 
-      {/* ARGO Float 10-Day Cycle Simulator Section */}
+      {/* Handcrafted Asymmetric Bento Grid of Scientific Capabilities */}
+      <BentoGrid />
+
+      {/* ARGO Float 10-Day Depth Cycle Simulator */}
       <ArgoSimulator />
 
       {/* About FloatChat Section */}
-      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 relative bg-[#030917]">
+      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 relative bg-[#030914] border-t border-cyan-500/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Column: Narrative */}
@@ -170,15 +114,15 @@ export default function Home() {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-                <div className="p-4 rounded-2xl bg-[#020617] border border-cyan-500/20 shadow-lg">
+                <div className="p-4 rounded-2xl bg-[#020611] border border-cyan-500/20 shadow-lg">
                   <div className="text-3xl font-black text-cyan-300 font-mono">3,900+</div>
                   <div className="text-xs text-slate-300 font-medium mt-1">Autonomous Floats Continuously Monitored</div>
                 </div>
-                <div className="p-4 rounded-2xl bg-[#020617] border border-cyan-500/20 shadow-lg">
+                <div className="p-4 rounded-2xl bg-[#020611] border border-cyan-500/20 shadow-lg">
                   <div className="text-3xl font-black text-teal-300 font-mono">2,000m</div>
                   <div className="text-xs text-slate-300 font-medium mt-1">Deep Sea Profiling Depth</div>
                 </div>
-                <div className="p-4 rounded-2xl bg-[#020617] border border-cyan-500/20 shadow-lg">
+                <div className="p-4 rounded-2xl bg-[#020611] border border-cyan-500/20 shadow-lg">
                   <div className="text-3xl font-black text-sky-300 font-mono">100% Real</div>
                   <div className="text-xs text-slate-300 font-medium mt-1">Verified Scientific CTD Calibration</div>
                 </div>
@@ -211,31 +155,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Core Features Section */}
-      <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 relative bg-[#020617]">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4 font-mono">
-              Scientific Exploration Suite
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-['Outfit',sans-serif] mb-4">
-              Core Analytical <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-300 to-sky-400">Capabilities</span>
-            </h2>
-            <p className="text-slate-300 text-base sm:text-lg">
-              Designed for ocean researchers, climate scientists, and students. Every module connects to verified ARGO observation datasets.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {coreFeatures.map((feature, idx) => (
-              <FeatureCard key={idx} {...feature} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-24 px-4 sm:px-6 lg:px-8 relative bg-[#030917] border-y border-cyan-500/10">
+      <section id="how-it-works" className="py-24 px-4 sm:px-6 lg:px-8 relative bg-[#020617] border-y border-cyan-500/10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4 font-mono">
@@ -255,7 +176,7 @@ export default function Home() {
               return (
                 <div
                   key={idx}
-                  className="p-6 rounded-3xl bg-[#040e21] border border-cyan-500/20 backdrop-blur-xl flex flex-col justify-between group hover:border-cyan-400/60 transition-all duration-300 hover:-translate-y-1 shadow-xl"
+                  className="p-6 rounded-3xl bg-[#030914] border border-cyan-500/20 backdrop-blur-xl flex flex-col justify-between group hover:border-cyan-400/60 transition-all duration-300 hover:-translate-y-1 shadow-xl"
                 >
                   <div className="flex items-center justify-between mb-6">
                     <span className="text-3xl font-black text-cyan-400/30 font-['Outfit',sans-serif] group-hover:text-cyan-400 transition-colors">
@@ -281,7 +202,7 @@ export default function Home() {
       </section>
 
       {/* Our Mission Section */}
-      <section id="mission" className="py-24 px-4 sm:px-6 lg:px-8 relative bg-[#020617]">
+      <section id="mission" className="py-24 px-4 sm:px-6 lg:px-8 relative bg-[#030914]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4 font-mono">
@@ -304,7 +225,7 @@ export default function Home() {
               return (
                 <div
                   key={idx}
-                  className="p-6 rounded-3xl bg-[#040e21] border border-cyan-500/15 hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1 shadow-lg"
+                  className="p-6 rounded-3xl bg-[#020611] border border-cyan-500/15 hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1 shadow-lg"
                 >
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-300 mb-5">
                     <PillarIcon className="w-6 h-6" />
