@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { Bot, Send, RefreshCw } from 'lucide-react';
 
-export default function AIInsights({ selectedFloat, selectedRegion }) {
+export default function AIInsights({ selectedFloat }) {
   const [selectedPrompt, setSelectedPrompt] = useState('explain-profile');
   const [loading, setLoading] = useState(false);
   const [customQuestion, setCustomQuestion] = useState('');
   const [customResponse, setCustomResponse] = useState(null);
 
-  const getGroundTruthInsight = (type) => {
-    if (!selectedFloat) return 'Select an ARGO float to generate grounded scientific insights.';
+  const getStructuredInsight = (type) => {
+    if (!selectedFloat) {
+      return {
+        title: 'No Float Selected',
+        paragraphs: ['Click any ARGO float marker on the map to read an explanation of its ocean measurements.'],
+      };
+    }
 
     const temp = selectedFloat.surfaceTemp;
     const sal = selectedFloat.surfaceSalinity;
@@ -17,30 +22,75 @@ export default function AIInsights({ selectedFloat, selectedRegion }) {
     const depth = selectedFloat.maxDepth;
 
     if (type === 'explain-measurements') {
-      return `For Float ${selectedFloat.id} in the ${region} (${selectedFloat.lat.toFixed(2)}°N, ${selectedFloat.lng.toFixed(2)}°E), surface temperature is ${temp}°C and practical salinity is ${sal} PSU. These values indicate standard stratification in the upper water column. Dissolved oxygen of ${o2} ml/L indicates typical surface gas exchange, decreasing through the photic boundary layer.`;
+      return {
+        title: `What Float ${selectedFloat.id} Recorded`,
+        items: [
+          {
+            label: 'Surface Temperature',
+            text: `At ${temp}°C in the ${region} (${selectedFloat.lat.toFixed(2)}°N, ${selectedFloat.lng.toFixed(2)}°E), surface waters are warm and well-mixed from sunlight and wind.`,
+          },
+          {
+            label: 'Salinity',
+            text: `Salinity measures ${sal} PSU, reflecting the local balance between evaporation, rainfall, and ocean currents.`,
+          },
+          {
+            label: 'Dissolved Oxygen',
+            text: `Oxygen levels sit at ${o2} ml/L near the surface, supporting marine life before tapering off at deeper levels.`,
+          },
+        ],
+      };
     }
 
     if (type === 'summarize-region') {
-      return `The ${region} sector currently exhibits an average thermal signature of ${temp}°C. Based on current ARGO observation cycles, this basin shows steep thermocline gradients between 100m and 500m. In the northern section, higher evaporation rates elevate surface salinity to ${sal} PSU, forming a barrier layer that modulates vertical heat exchange.`;
+      return {
+        title: `${region} Regional Overview`,
+        paragraphs: [
+          `Observations from Float ${selectedFloat.id} show an average surface temperature around ${temp}°C and salinity of ${sal} PSU in the ${region}.`,
+          `Between 100m and 500m below the surface, water temperature drops sharply—creating a strong thermal boundary that keeps warmer surface water separated from the colder deep ocean below.`,
+        ],
+      };
     }
 
     if (type === 'identify-anomalies') {
       const hasOxygenAnomaly = o2 < 1.4;
       const isWarm = temp > 29.0;
-      return `Telemetry Assessment for Float ${selectedFloat.id}:
-• Temperature: ${temp}°C reflects a ${isWarm ? '+0.4°C positive warm-phase deviation' : 'nominal seasonal range'} relative to regional climatology.
-• Salinity: ${sal} PSU corresponds to standard evaporative equilibrium in this sector.
-• Biogeochemistry: Dissolved oxygen at ${o2} ml/L is ${hasOxygenAnomaly ? 'flagged for Subsurface Hypoxia (< 1.4 ml/L OMZ threshold)' : 'within normal ecological limits'}.`;
+      return {
+        title: `Condition Check for Float ${selectedFloat.id}`,
+        items: [
+          {
+            label: 'Temperature Status',
+            text: `${temp}°C is ${isWarm ? 'about 0.4°C warmer than the typical seasonal average for this basin.' : 'within the expected seasonal range for this region.'}`,
+          },
+          {
+            label: 'Salinity Status',
+            text: `${sal} PSU falls right in line with normal evaporation and mixing patterns here.`,
+          },
+          {
+            label: 'Oxygen Health',
+            text: `At ${o2} ml/L, oxygen is ${hasOxygenAnomaly ? 'low enough to indicate an Oxygen Minimum Zone (below 1.4 ml/L), which can stress marine habitats.' : 'at a healthy level for marine ecosystems.'}`,
+          },
+        ],
+      };
     }
 
-    if (type === 'explain-profile') {
-      return `Vertical Water Column Analysis (0m to ${depth}m):
-• Epipelagic Zone (0–100m): Homogeneous mixed layer maintained by surface wind stress, with temperature holding near ${temp}°C.
-• Thermocline Boundary (100–500m): Rapid thermal decrease across 400m depth, isolating deep oceanic water.
-• Bathypelagic Zone (500–${depth}m): Deep ocean water stabilizing near 2.4°C and 34.8 PSU, consistent with planetary thermohaline circulation.`;
-    }
-
-    return '';
+    // default: 'explain-profile'
+    return {
+      title: `How Conditions Change With Depth (0m to ${depth}m)`,
+      items: [
+        {
+          label: 'Upper Ocean (0–100m)',
+          text: `Wind and waves keep the top layer evenly mixed, holding temperatures steady near ${temp}°C.`,
+        },
+        {
+          label: 'Thermocline Layer (100–500m)',
+          text: `Temperature falls rapidly across this 400-meter transition zone, separating sunlit surface waters from the deep sea.`,
+        },
+        {
+          label: `Deep Ocean (500–${depth}m)`,
+          text: `Below 500m, conditions stabilize into cold, dense deep water around 2.4°C and 34.8 PSU.`,
+        },
+      ],
+    };
   };
 
   const handleActionClick = (promptKey) => {
@@ -54,105 +104,103 @@ export default function AIInsights({ selectedFloat, selectedRegion }) {
 
     setLoading(true);
     setTimeout(() => {
-      setCustomResponse(
-        `Analysis for Float ${selectedFloat.id} (${selectedFloat.region}):\n` +
-          `Query: "${customQuestion}"\n` +
-          `The measured profile indicates standard thermohaline stratification. Surface temperature (${selectedFloat.surfaceTemp}°C) and salinity (${selectedFloat.surfaceSalinity} PSU) are in equilibrium with regional atmospheric forcing.`
-      );
+      setCustomResponse({
+        title: `Answer for Float ${selectedFloat.id} (${selectedFloat.region})`,
+        paragraphs: [
+          `Question: "${customQuestion}"`,
+          `Based on this float's latest profile, surface water is ${selectedFloat.surfaceTemp}°C with ${selectedFloat.surfaceSalinity} PSU salinity and ${selectedFloat.dissolvedOxygen || 4.2} ml/L dissolved oxygen—showing clear layering down to ${selectedFloat.maxDepth}m.`,
+        ],
+      });
       setLoading(false);
-    }, 500);
+    }, 450);
   };
 
-  const activeInsightText = customResponse || getGroundTruthInsight(selectedPrompt);
+  const insight = customResponse || getStructuredInsight(selectedPrompt);
 
   return (
-    <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4 text-slate-900">
+    <div className="rounded-2xl bg-white border border-slate-200 p-6 sm:p-7 shadow-xs space-y-5 text-slate-900">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-200">
-        <div className="flex items-center gap-2">
-          <Bot className="w-4 h-4 text-sky-600" />
-          <h3 className="text-base font-bold text-slate-900 font-['Outfit',sans-serif]">
-            Oceanographic Analysis
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-200">
+        <div className="flex items-center gap-2.5">
+          <Bot className="w-5 h-5 text-sky-600" />
+          <h3 className="text-lg font-bold text-slate-900 font-['Outfit',sans-serif]">
+            Oceanographic Insights
           </h3>
-          <span className="text-[11px] font-mono text-slate-500">
-            • Grounded in ARGO observations
+          <span className="text-xs text-slate-500 font-medium">
+            • Based on live ARGO float data
           </span>
         </div>
-        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-medium">
+        <span className="text-xs px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 font-semibold">
           Float {selectedFloat?.id || '--'}
         </span>
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex flex-wrap gap-1.5">
-        <button
-          onClick={() => handleActionClick('explain-measurements')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
-            selectedPrompt === 'explain-measurements' && !customResponse
-              ? 'bg-slate-900 text-white font-medium border border-slate-900 shadow-xs'
-              : 'bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-          }`}
-        >
-          Explain Measurements
-        </button>
-
-        <button
-          onClick={() => handleActionClick('summarize-region')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
-            selectedPrompt === 'summarize-region' && !customResponse
-              ? 'bg-slate-900 text-white font-medium border border-slate-900 shadow-xs'
-              : 'bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-          }`}
-        >
-          Summarize Region
-        </button>
-
-        <button
-          onClick={() => handleActionClick('identify-anomalies')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
-            selectedPrompt === 'identify-anomalies' && !customResponse
-              ? 'bg-slate-900 text-white font-medium border border-slate-900 shadow-xs'
-              : 'bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-          }`}
-        >
-          Identify Anomalies
-        </button>
-
-        <button
-          onClick={() => handleActionClick('explain-profile')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
-            selectedPrompt === 'explain-profile' && !customResponse
-              ? 'bg-slate-900 text-white font-medium border border-slate-900 shadow-xs'
-              : 'bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-          }`}
-        >
-          Explain Depth Sounding
-        </button>
+      {/* Action Tabs */}
+      <div className="flex flex-wrap gap-2">
+        {[
+          { key: 'explain-profile', label: 'Depth Profile' },
+          { key: 'explain-measurements', label: 'Current Readings' },
+          { key: 'summarize-region', label: 'Region Summary' },
+          { key: 'identify-anomalies', label: 'Anomaly Check' },
+        ].map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => handleActionClick(tab.key)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              selectedPrompt === tab.key && !customResponse
+                ? 'bg-slate-900 text-white shadow-xs'
+                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
-      {/* Grounded Insight Box */}
-      <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-        <p className="text-slate-700 text-xs leading-relaxed whitespace-pre-line font-mono">
-          {activeInsightText}
-        </p>
+      {/* Clean Readable Insight Content */}
+      <div className="p-5 sm:p-6 rounded-xl bg-slate-50 border border-slate-200 space-y-4">
+        <h4 className="text-base font-bold text-slate-900 font-['Outfit',sans-serif]">
+          {insight.title}
+        </h4>
+
+        {insight.paragraphs && (
+          <div className="space-y-3">
+            {insight.paragraphs.map((p, idx) => (
+              <p key={idx} className="text-sm sm:text-[15px] text-slate-700 leading-relaxed">
+                {p}
+              </p>
+            ))}
+          </div>
+        )}
+
+        {insight.items && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {insight.items.map((item, idx) => (
+              <div key={idx} className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5 shadow-2xs">
+                <div className="text-sm font-bold text-slate-900">{item.label}</div>
+                <p className="text-sm text-slate-600 leading-relaxed">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Query Bar */}
-      <form onSubmit={handleCustomSubmit} className="flex gap-2">
+      {/* Question Input */}
+      <form onSubmit={handleCustomSubmit} className="flex flex-col sm:flex-row gap-2.5">
         <input
           type="text"
-          placeholder="Inquire about this float's observations..."
+          placeholder="Ask a question about this float's measurements..."
           value={customQuestion}
           onChange={(e) => setCustomQuestion(e.target.value)}
-          className="flex-1 px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs font-mono focus:outline-none focus:border-sky-400 focus:bg-white transition-colors"
+          className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-slate-900 focus:bg-white transition-colors"
         />
         <button
           type="submit"
           disabled={loading || !customQuestion.trim()}
-          className="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors shadow-xs"
+          className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-50 transition-colors shadow-xs"
         >
-          {loading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
-          <span>Analyze</span>
+          {loading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+          <span>Ask FloatChat</span>
         </button>
       </form>
     </div>
