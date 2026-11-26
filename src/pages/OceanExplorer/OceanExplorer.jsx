@@ -8,7 +8,6 @@ import OceanCharts from './components/OceanCharts';
 import AIInsights from './components/AIInsights';
 import ArgoInfoModal from './components/ArgoInfoModal';
 import { useOceanData } from './hooks/useOceanData';
-import { Compass, HelpCircle, Layers, Activity } from 'lucide-react';
 
 export default function OceanExplorer() {
   const {
@@ -31,31 +30,28 @@ export default function OceanExplorer() {
   const [detailsPanelOpen, setDetailsPanelOpen] = useState(false);
   const [infoModalOpen, setInfoModalOpen] = useState(false);
 
-  // When a float marker is clicked on the map
   const handleSelectFloatFromMap = (floatId) => {
     setSelectedFloatId(floatId);
     setDetailsPanelOpen(true);
   };
 
-  // Smooth scroll down to scientific Plotly depth charts section
   const handleViewCharts = () => {
     const el = document.getElementById('charts-section');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-100 flex flex-col font-['Inter',sans-serif]">
-      {/* Top Research Header */}
+    <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col font-['Inter',sans-serif]">
+      {/* Top Header */}
       <ExplorerHeader activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* Main Dashboard Body */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Top 4 Overview Statistics Cards */}
+      {/* Main Dashboard Layout */}
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        {/* Overview Stats */}
         <OverviewCards statistics={statistics} />
 
-        {/* Ocean Map and Filter Sidebar Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Large Interactive Leaflet Ocean Map (8 or 9 cols) */}
+        {/* Map and Filter Sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
           <div className="lg:col-span-8 xl:col-span-9">
             <OceanMap
               floats={filteredFloats}
@@ -72,7 +68,6 @@ export default function OceanExplorer() {
             />
           </div>
 
-          {/* Scientific Filter Sidebar (4 or 3 cols) */}
           <div className="lg:col-span-4 xl:col-span-3">
             <FilterSidebar
               filters={filters}
@@ -83,17 +78,17 @@ export default function OceanExplorer() {
           </div>
         </div>
 
-        {/* Dedicated Scientific Plotly Ocean Depth Sounding & Time Series Charts */}
+        {/* Plotly Depth Sounding & Time Series Charts */}
         <OceanCharts selectedFloat={selectedFloat} />
 
-        {/* AI Oceanographic Insights Section */}
+        {/* Grounded Oceanographic AI Analysis */}
         <AIInsights
           selectedFloat={selectedFloat}
           selectedRegion={selectedRegion}
         />
       </main>
 
-      {/* Slide-over Right Float Details Panel */}
+      {/* Right Float Details Drawer */}
       <FloatDetailsPanel
         float={selectedFloat}
         isOpen={detailsPanelOpen}
@@ -101,7 +96,7 @@ export default function OceanExplorer() {
         onViewChartsSection={handleViewCharts}
       />
 
-      {/* Educational First-Time Visitor Modal */}
+      {/* Information Modal */}
       <ArgoInfoModal
         isOpen={infoModalOpen}
         onClose={() => setInfoModalOpen(false)}

@@ -6,15 +6,10 @@ import MapLegend from './MapLegend';
 import {
   RotateCcw,
   Search,
-  Maximize2,
   Compass,
   X,
   Layers,
-  Thermometer,
-  Waves,
-  Droplets,
   HelpCircle,
-  Eye,
 } from 'lucide-react';
 import { OCEAN_REGIONS } from '../data/regionsData';
 
@@ -31,57 +26,52 @@ function MapRecenter({ center, zoom }) {
 
 // Marker Color Generator based on active visualization mode
 function getMarkerColor(float, mode, isSelected) {
-  if (isSelected) return '#f59e0b'; // Radiant amber/orange for selected
+  if (isSelected) return '#f59e0b'; // Crisp amber for selected
 
   if (mode === 'temperature') {
     const t = float.surfaceTemp;
-    if (t < 5) return '#38bdf8'; // Arctic/Antarctic blue
+    if (t < 5) return '#38bdf8'; // Polar blue
     if (t < 18) return '#14b8a6'; // Temperate teal
     if (t < 26) return '#f59e0b'; // Warm amber
-    return '#ef4444'; // Tropical hot red
+    return '#ef4444'; // Hot red
   }
 
   if (mode === 'salinity') {
     const s = float.surfaceSalinity;
-    if (s < 34.0) return '#67e8f9'; // Low salinity plume
-    if (s < 35.8) return '#0ea5e9'; // Typical ocean water
-    return '#818cf8'; // High evaporation salinity
+    if (s < 34.0) return '#38bdf8'; // Fresh
+    if (s < 35.8) return '#0284c7'; // Standard
+    return '#6366f1'; // High salinity
   }
 
   if (mode === 'oxygen') {
     const o = float.dissolvedOxygen;
-    if (!o || o < 2.0) return '#f43f5e'; // Hypoxic danger
+    if (!o || o < 2.0) return '#f43f5e'; // Hypoxic
     if (o < 5.0) return '#38bdf8'; // Moderate
-    return '#10b981'; // Saturated oxygen
+    return '#10b981'; // Well-oxygenated
   }
 
-  return '#06b6d4'; // Default cyan
+  return '#0ea5e9'; // Clean sky blue
 }
 
-// Custom Leaflet DivIcon Maker
+// Custom Leaflet DivIcon Maker (Minimalist, Precision Engineering)
 function createFloatIcon(float, mode, isSelected) {
   const color = getMarkerColor(float, mode, isSelected);
-  const size = isSelected ? 28 : 20;
+  const size = isSelected ? 22 : 16;
 
   const html = `
     <div style="position: relative; width: ${size}px; height: ${size}px; display: flex; align-items: center; justify-content: center;">
-      ${
-        isSelected
-          ? `<div style="position: absolute; inset: -6px; border-radius: 9999px; background-color: ${color}; opacity: 0.4; animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;"></div>`
-          : ''
-      }
       <div style="
         width: ${size}px; 
         height: ${size}px; 
         border-radius: 9999px; 
         background: ${color}; 
         border: 2px solid #ffffff; 
-        box-shadow: 0 0 12px ${color}, inset 0 1px 2px rgba(0,0,0,0.5);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.6);
         display: flex;
         align-items: center;
         justify-content: center;
       ">
-        <div style="width: 5px; height: 5px; border-radius: 9999px; background: #ffffff;"></div>
+        <div style="width: 4px; height: 4px; border-radius: 9999px; background: #ffffff;"></div>
       </div>
     </div>
   `;
@@ -116,38 +106,25 @@ export default function OceanMap({
     ocean: {
       url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
       referenceUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}',
-      attribution: '&copy; Esri, GEBCO, NOAA, National Geographic, DeLorme, HERE, Geonames.org',
+      attribution: '&copy; Esri, GEBCO, NOAA',
       maxZoom: 13,
     },
     satellite: {
       url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      attribution: '&copy; Esri, Maxar, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN',
+      attribution: '&copy; Esri, Maxar, Earthstar',
       maxZoom: 18,
     },
     osm: {
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      attribution: '&copy; OpenStreetMap',
       maxZoom: 19,
     },
   };
 
-  // Handle Search Input (Region name or coordinate lat, lng)
   const handleSearch = (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
 
-    // Check if coordinates entered: e.g. "16.5, 64.5"
-    const coordMatch = searchQuery.match(/^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)$/);
-    if (coordMatch) {
-      const lat = parseFloat(coordMatch[1]);
-      const lng = parseFloat(coordMatch[3]);
-      onSelectRegion('custom');
-      // Pan to coords
-      // (handled through custom search state if needed)
-      return;
-    }
-
-    // Search matched ocean region
     const matched = OCEAN_REGIONS.find(
       (r) =>
         r.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -160,41 +137,40 @@ export default function OceanMap({
     }
   };
 
-  // Trajectory points for the currently selected float
   const trajectoryPositions = useMemo(() => {
     if (!selectedFloat || !selectedFloat.trajectory) return [];
     return selectedFloat.trajectory.map((p) => [p.lat, p.lng]);
   }, [selectedFloat]);
 
   return (
-    <div className="relative w-full h-[620px] rounded-3xl overflow-hidden border border-cyan-500/25 shadow-2xl bg-[#020617] flex flex-col">
+    <div className="relative w-full h-[620px] rounded-2xl overflow-hidden border border-white/[0.08] shadow-lg bg-[#07090e] flex flex-col">
       {/* Top Map Control Bar */}
-      <div className="absolute top-4 left-4 right-4 z-[400] flex flex-col md:flex-row items-center justify-between gap-3 pointer-events-none">
-        {/* Left: Region Search & Quick Shortcuts */}
+      <div className="absolute top-3 left-3 right-3 z-[400] flex flex-col md:flex-row items-center justify-between gap-2.5 pointer-events-none">
+        {/* Left: Search & Quick Region Shortcuts */}
         <div className="flex flex-wrap items-center gap-2 pointer-events-auto w-full md:w-auto">
-          <form onSubmit={handleSearch} className="relative w-full sm:w-64">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-cyan-400">
+          <form onSubmit={handleSearch} className="relative w-full sm:w-60">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
               <Search className="w-3.5 h-3.5" />
             </div>
             <input
               type="text"
-              placeholder="Search region or coords..."
+              placeholder="Search ocean region..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#020617]/90 border border-cyan-500/30 text-white placeholder-slate-400 text-xs font-mono backdrop-blur-xl focus:outline-none focus:border-cyan-300 shadow-xl"
+              className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-[#0c1017]/95 border border-white/[0.1] text-white placeholder-slate-500 text-xs font-mono backdrop-blur-md focus:outline-none focus:border-slate-400 shadow-sm"
             />
           </form>
 
           {/* Quick Region Shortcuts */}
-          <div className="hidden sm:flex items-center gap-1 p-1 rounded-xl bg-[#020617]/90 border border-cyan-500/20 backdrop-blur-xl shadow-xl">
+          <div className="hidden sm:flex items-center gap-1 p-1 rounded-lg bg-[#0c1017]/95 border border-white/[0.08] backdrop-blur-md shadow-sm">
             {OCEAN_REGIONS.slice(1, 5).map((reg) => (
               <button
                 key={reg.id}
                 onClick={() => onSelectRegion(reg.id)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-mono transition-all ${
+                className={`px-2 py-1 rounded-md text-[11px] font-mono transition-colors ${
                   selectedRegion.id === reg.id
-                    ? 'bg-cyan-500 text-black font-bold shadow-md shadow-cyan-500/30'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                    ? 'bg-slate-800 text-white font-medium border border-white/10'
+                    : 'text-slate-400 hover:text-white'
                 }`}
               >
                 {reg.label}
@@ -203,88 +179,81 @@ export default function OceanMap({
           </div>
         </div>
 
-        {/* Right: Layer Mode Selector & Reset Control */}
+        {/* Right: Layer Mode Selector & Basemap Switcher */}
         <div className="flex items-center gap-2 pointer-events-auto self-end md:self-auto">
           {/* Layer Selector */}
-          <div className="flex items-center gap-1 p-1 rounded-xl bg-[#020617]/90 border border-cyan-500/25 backdrop-blur-xl shadow-xl text-xs">
+          <div className="flex items-center gap-1 p-1 rounded-lg bg-[#0c1017]/95 border border-white/[0.08] backdrop-blur-md shadow-sm text-xs">
             <button
               onClick={() => setVisualizationMode('locations')}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 visualizationMode === 'locations'
-                  ? 'bg-cyan-500 text-black font-bold'
+                  ? 'bg-slate-800 text-white border border-white/10'
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="Show standard ARGO float markers"
             >
-              Float Locations
+              Locations
             </button>
             <button
               onClick={() => setVisualizationMode('temperature')}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 visualizationMode === 'temperature'
-                  ? 'bg-cyan-500 text-black font-bold'
+                  ? 'bg-slate-800 text-white border border-white/10'
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="Color-code floats by Sea Surface Temperature"
             >
               Temperature
             </button>
             <button
               onClick={() => setVisualizationMode('salinity')}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 visualizationMode === 'salinity'
-                  ? 'bg-cyan-500 text-black font-bold'
+                  ? 'bg-slate-800 text-white border border-white/10'
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="Color-code floats by Practical Salinity"
             >
               Salinity
             </button>
             <button
               onClick={() => setVisualizationMode('oxygen')}
-              className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+              className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 visualizationMode === 'oxygen'
-                  ? 'bg-cyan-500 text-black font-bold'
+                  ? 'bg-slate-800 text-white border border-white/10'
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="Color-code floats by Dissolved Oxygen"
             >
-              Dissolved O₂
+              Oxygen
             </button>
           </div>
 
-          {/* Basemap Style Switcher (No API Key Required) */}
-          <div className="hidden sm:flex items-center gap-1 p-1 rounded-xl bg-[#020617]/90 border border-cyan-500/25 backdrop-blur-xl shadow-xl text-xs">
+          {/* Basemap Switcher */}
+          <div className="hidden sm:flex items-center gap-1 p-1 rounded-lg bg-[#0c1017]/95 border border-white/[0.08] backdrop-blur-md shadow-sm text-xs">
             <button
               onClick={() => setActiveBasemap('ocean')}
-              className={`px-2 py-1 rounded-lg font-mono transition-all ${
+              className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
                 activeBasemap === 'ocean'
-                  ? 'bg-teal-500 text-black font-bold'
+                  ? 'bg-slate-800 text-white font-medium border border-white/10'
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="NOAA/GEBCO Ocean Bathymetry (No API key needed)"
             >
               Ocean Base
             </button>
             <button
               onClick={() => setActiveBasemap('satellite')}
-              className={`px-2 py-1 rounded-lg font-mono transition-all ${
+              className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
                 activeBasemap === 'satellite'
-                  ? 'bg-teal-500 text-black font-bold'
+                  ? 'bg-slate-800 text-white font-medium border border-white/10'
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="Esri World Imagery Satellite (No API key needed)"
             >
               Satellite
             </button>
             <button
               onClick={() => setActiveBasemap('osm')}
-              className={`px-2 py-1 rounded-lg font-mono transition-all ${
+              className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
                 activeBasemap === 'osm'
-                  ? 'bg-teal-500 text-black font-bold'
+                  ? 'bg-slate-800 text-white font-medium border border-white/10'
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="OpenStreetMap Standard (No API key needed)"
             >
               OSM
             </button>
@@ -293,7 +262,7 @@ export default function OceanMap({
           {/* Reset Global View Button */}
           <button
             onClick={onResetGlobalView}
-            className="p-2 rounded-xl bg-[#020617]/90 border border-cyan-500/25 text-slate-300 hover:text-white hover:border-cyan-400 backdrop-blur-xl shadow-xl transition-all"
+            className="p-1.5 rounded-lg bg-[#0c1017]/95 border border-white/[0.08] text-slate-400 hover:text-white backdrop-blur-md shadow-sm transition-colors"
             title="Reset to global world view"
           >
             <RotateCcw className="w-4 h-4" />
@@ -301,12 +270,12 @@ export default function OceanMap({
         </div>
       </div>
 
-      {/* Dismissible First-Time User Welcome Overlay */}
+      {/* Dismissible First-Time User Guide */}
       {showWelcome && (
-        <div className="absolute top-18 left-4 right-4 sm:left-auto sm:right-4 z-[400] max-w-sm p-3.5 rounded-2xl bg-[#030914]/95 backdrop-blur-xl border border-cyan-400/40 shadow-2xl text-xs space-y-1.5 animate-in fade-in slide-in-from-top-2">
+        <div className="absolute top-16 left-3 right-3 sm:left-auto sm:right-3 z-[400] max-w-sm p-3 rounded-xl bg-[#0c1017]/95 backdrop-blur-md border border-white/[0.1] shadow-lg text-xs space-y-1">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-cyan-300 font-bold flex items-center gap-1.5">
-              <Compass className="w-3.5 h-3.5 text-cyan-400" />
+            <span className="font-mono text-slate-200 font-medium flex items-center gap-1.5 text-[11px]">
+              <Compass className="w-3.5 h-3.5 text-sky-400" />
               <span>Interactive Ocean Map Guide</span>
             </span>
             <button
@@ -316,13 +285,13 @@ export default function OceanMap({
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
-          <p className="text-slate-300 text-[11px] leading-relaxed">
-            Select any float marker to explore its real vertical ocean depth profile, or search regions above.
+          <p className="text-slate-400 text-[11px] leading-relaxed">
+            Select any float marker to inspect real vertical CTD depth profiles, or search regions above.
           </p>
         </div>
       )}
 
-      {/* Leaflet Interactive Map Container */}
+      {/* Leaflet Interactive Map */}
       <MapContainer
         center={mapCenter}
         zoom={mapZoom}
@@ -330,11 +299,10 @@ export default function OceanMap({
         maxZoom={12}
         scrollWheelZoom={true}
         className="w-full h-full z-0"
-        style={{ background: '#020617' }}
+        style={{ background: '#07090e' }}
       >
         <MapRecenter center={mapCenter} zoom={mapZoom} />
 
-        {/* High-Contrast Scientific Ocean Tiles (100% Free, No API Key Required) */}
         <TileLayer
           key={activeBasemap}
           url={basemapConfigs[activeBasemap].url}
@@ -350,20 +318,20 @@ export default function OceanMap({
           />
         )}
 
-        {/* Selected Float Trajectory Polyline */}
+        {/* Selected Float Trajectory Line */}
         {trajectoryPositions.length > 1 && (
           <Polyline
             positions={trajectoryPositions}
             pathOptions={{
-              color: '#22d3ee',
-              weight: 2.5,
-              dashArray: '5, 5',
+              color: '#38bdf8',
+              weight: 2,
+              dashArray: '4, 4',
               opacity: 0.85,
             }}
           />
         )}
 
-        {/* ARGO Float Markers */}
+        {/* Float Markers */}
         {floats.map((float) => {
           const isSelected = selectedFloat && selectedFloat.id === float.id;
           const icon = createFloatIcon(float, visualizationMode, isSelected);
@@ -377,22 +345,18 @@ export default function OceanMap({
                 click: () => onSelectFloat(float.id),
               }}
             >
-              {/* Informative Hover Tooltip */}
-              <Tooltip direction="top" offset={[0, -12]} opacity={1}>
-                <div className="p-2 rounded-xl bg-[#020617] border border-cyan-500/40 text-slate-100 text-xs shadow-xl space-y-1 font-mono">
-                  <div className="flex items-center justify-between gap-3 font-bold text-cyan-300">
+              <Tooltip direction="top" offset={[0, -10]} opacity={1}>
+                <div className="p-2 rounded-lg bg-[#0c1017] border border-white/10 text-slate-200 text-xs shadow-md space-y-1 font-mono">
+                  <div className="flex items-center justify-between gap-3 font-bold text-white">
                     <span>{float.id}</span>
-                    <span className="text-[10px] text-teal-400 font-sans">{float.platform}</span>
+                    <span className="text-[10px] text-slate-400 font-sans">{float.platform}</span>
                   </div>
                   <div className="text-[11px] text-slate-300 font-sans">
-                    Region: <span className="text-white font-medium">{float.region}</span>
+                    {float.region}
                   </div>
-                  <div className="grid grid-cols-2 gap-2 text-[10px] pt-0.5 border-t border-slate-800">
+                  <div className="grid grid-cols-2 gap-2 text-[10px] pt-0.5 border-t border-white/[0.08] text-slate-400">
                     <span>Temp: {float.surfaceTemp}°C</span>
                     <span>Sal: {float.surfaceSalinity} PSU</span>
-                  </div>
-                  <div className="text-[9px] text-slate-400">
-                    Last update: {float.lastObservationDate}
                   </div>
                 </div>
               </Tooltip>
@@ -402,17 +366,17 @@ export default function OceanMap({
       </MapContainer>
 
       {/* Bottom Map Legend */}
-      <div className="absolute bottom-4 left-4 z-[400]">
+      <div className="absolute bottom-3 left-3 z-[400]">
         <MapLegend
           visualizationMode={visualizationMode}
           onOpenInfoModal={onOpenInfoModal}
         />
       </div>
 
-      {/* Bottom Right Selected Coordinates Badge */}
-      <div className="absolute bottom-4 right-4 z-[400] px-3 py-1.5 rounded-xl bg-[#020617]/90 border border-cyan-500/20 backdrop-blur-xl text-[11px] font-mono text-slate-300 shadow-xl hidden sm:flex items-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-        <span>Selected Region: {selectedRegion.label}</span>
+      {/* Bottom Right Region Indicator */}
+      <div className="absolute bottom-3 right-3 z-[400] px-2.5 py-1 rounded-md bg-[#0c1017]/95 border border-white/[0.08] text-[11px] font-mono text-slate-400 hidden sm:flex items-center gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+        <span>Region: {selectedRegion.label}</span>
       </div>
     </div>
   );
