@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import OceanExplorer from './pages/OceanExplorer/OceanExplorer';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function HomeLayout() {
@@ -27,9 +28,10 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <ToastProvider>
-          <div className="flex flex-col min-h-screen bg-[#030b1a] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
+          <div className="flex flex-col min-h-screen bg-[#020617] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
             <Routes>
               <Route path="/" element={<HomeLayout />} />
+              <Route path="/explorer" element={<OceanExplorer />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route
