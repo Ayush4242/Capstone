@@ -140,7 +140,7 @@ export default function OceanMap({
   return (
     <div className="relative w-full h-[620px] rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-slate-100 flex flex-col">
       {/* Top Map Control Bar */}
-      <div className="absolute top-3 left-3 right-3 z-[400] flex flex-col md:flex-row items-center justify-between gap-2.5 pointer-events-none">
+      <div className="absolute top-3 left-3 right-3 z-[400] flex flex-wrap items-center justify-between gap-2 pointer-events-none">
         {/* Left: Search & Shortcuts */}
         <div className="flex flex-wrap items-center gap-2 pointer-events-auto w-full md:w-auto">
           <form onSubmit={handleSearch} className="relative w-full sm:w-60">
@@ -267,7 +267,7 @@ export default function OceanMap({
 
       {/* Dismissible First-Time User Guide */}
       {showWelcome && (
-        <div className="absolute top-16 left-3 right-3 sm:left-auto sm:right-3 z-[400] max-w-sm p-3 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-md text-xs space-y-1">
+        <div className="absolute top-24 left-3 right-3 sm:left-auto sm:right-3 z-[400] max-w-sm p-3 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-md text-xs space-y-1">
           <div className="flex items-center justify-between">
             <span className="font-mono text-slate-800 font-medium flex items-center gap-1.5 text-[11px]">
               <Compass className="w-3.5 h-3.5 text-sky-600" />
@@ -294,8 +294,9 @@ export default function OceanMap({
         maxZoom={12}
         scrollWheelZoom={true}
         zoomControl={false}
+        worldCopyJump={true}
         className="w-full h-full z-0"
-        style={{ background: '#f8fafc' }}
+        style={{ background: '#d4e6f1' }}
       >
         <ZoomControl position="bottomright" />
         <MapRecenter center={mapCenter} zoom={mapZoom} />
@@ -371,7 +372,7 @@ export default function OceanMap({
       </div>
 
       {/* Bottom Right Region Indicator */}
-      <div className="absolute bottom-3 right-3 z-[400] px-2.5 py-1 rounded-md bg-white/95 border border-slate-200 text-[11px] font-mono text-slate-600 hidden sm:flex items-center gap-1.5 shadow-xs">
+      <div className="absolute bottom-7 right-14 z-[400] px-2.5 py-1 rounded-md bg-white/95 border border-slate-200 text-[11px] font-mono text-slate-600 hidden sm:flex items-center gap-1.5 shadow-xs">
         <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
         <span>Region: {selectedRegion.label}</span>
       </div>

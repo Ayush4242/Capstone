@@ -94,7 +94,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-[#0a1628] text-slate-100">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white text-slate-900">
       {/* Left Column: Atmospheric Ocean Imagery & Storytelling (Desktop) */}
       <div 
         className="relative hidden lg:flex lg:w-1/2 flex-col justify-between p-12 overflow-hidden bg-cover bg-center"
@@ -102,17 +102,21 @@ export default function Signup() {
           backgroundImage: `url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1800&q=80')`,
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#020b18] via-[#0a1e3d]/90 to-[#0d2f5e]/75 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/90 via-slate-900/75 to-sky-950/60" />
 
         {/* Brand Header */}
         <div className="relative z-10">
           <Link to="/" className="inline-flex items-center gap-3 text-white group">
-            <img src="/logo.jpg" alt="FloatChat" className="w-12 h-12 rounded-xl object-cover shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300" />
+            <img
+              src="/logo.jpg"
+              alt="FloatChat"
+              className="w-11 h-11 rounded-full object-cover ring-2 ring-white/40 shadow-md group-hover:scale-105 transition-transform duration-300"
+            />
             <div className="flex flex-col">
               <span className="text-2xl font-bold tracking-tight font-['Outfit',sans-serif]">
-                Float<span className="text-cyan-400">Chat</span>
+                FloatChat
               </span>
-              <span className="text-[11px] font-medium tracking-widest uppercase text-cyan-200/80 -mt-1">
+              <span className="text-[11px] font-medium tracking-widest uppercase text-sky-200/90 -mt-1">
                 AI Ocean Intelligence Platform
               </span>
             </div>
@@ -121,8 +125,8 @@ export default function Signup() {
 
         {/* Narrative & Benefits */}
         <div className="relative z-10 max-w-lg space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/25 text-white text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 text-sky-300" />
             <span>Open Ocean Science</span>
           </div>
 
@@ -130,54 +134,56 @@ export default function Signup() {
             Unlock the secrets of planetary ocean currents.
           </h2>
 
-          <div className="space-y-3 text-slate-300 text-sm">
+          <div className="space-y-3 text-slate-200 text-sm">
             <div className="flex items-start gap-2.5">
-              <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-sky-300 mt-0.5 shrink-0" />
               <span>Direct access to ARGO NetCDF observations without scientific software overhead.</span>
             </div>
             <div className="flex items-start gap-2.5">
-              <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-sky-300 mt-0.5 shrink-0" />
               <span>Conversational AI trained to understand salinity, temperature, and ocean physics.</span>
             </div>
             <div className="flex items-start gap-2.5">
-              <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-sky-300 mt-0.5 shrink-0" />
               <span>Real-time anomaly detection for marine heatwaves and hypoxia risks.</span>
             </div>
           </div>
         </div>
 
         {/* Bottom citation */}
-        <div className="relative z-10 text-xs text-slate-400">
+        <div className="relative z-10 text-xs text-slate-300">
           Complies with Global Ocean Observing System (GOOS) and open data principles.
         </div>
       </div>
 
-      {/* Right Column: Clean Registration Form on Deep Blue */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-[#0a1628] relative">
+      {/* Right Column: Clean White Registration Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-white relative">
         <div className="w-full max-w-md space-y-7">
           {/* Mobile Brand Link */}
-          <div className="lg:hidden flex items-center justify-between pb-6 border-b border-slate-700">
-            <Link to="/" className="flex items-center gap-2 text-white">
-              <img src="/logo.jpg" alt="FloatChat" className="w-8 h-8 rounded-lg object-cover" />
+          <div className="lg:hidden flex items-center justify-between pb-6 border-b border-slate-200">
+            <Link to="/" className="flex items-center gap-2.5 text-slate-900">
+              <img src="/logo.jpg" alt="FloatChat" className="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200" />
               <span className="font-bold text-lg font-['Outfit',sans-serif]">FloatChat</span>
             </Link>
-            <Link to="/" className="text-xs text-cyan-400 hover:underline">Return to Home</Link>
+            <Link to="/" className="text-xs text-sky-600 font-semibold hover:underline">
+              Return to Home
+            </Link>
           </div>
 
           {/* Form Header */}
           <div className="space-y-2">
-            <h1 className="text-3xl font-extrabold text-white font-['Outfit',sans-serif] tracking-tight">
+            <h1 className="text-3xl font-extrabold text-slate-900 font-['Outfit',sans-serif] tracking-tight">
               Join the Ocean Exploration Journey
             </h1>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-600 text-sm">
               Create your FloatChat account and start discovering ocean insights.
             </p>
           </div>
 
           {/* Error Alert */}
           {errorMessage && (
-            <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2 animate-in fade-in">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2 animate-in fade-in">
+              <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
               <span>{errorMessage}</span>
             </div>
           )}
@@ -186,7 +192,7 @@ export default function Signup() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Full Name */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300 block">
+              <label className="text-xs font-semibold text-slate-700 block">
                 Full Name
               </label>
               <div className="relative">
@@ -200,14 +206,14 @@ export default function Signup() {
                   placeholder="Dr. Sylvia Earle"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#071731] border border-cyan-500/20 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
                 />
               </div>
             </div>
 
             {/* Email Address */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300 block">
+              <label className="text-xs font-semibold text-slate-700 block">
                 Email Address
               </label>
               <div className="relative">
@@ -221,14 +227,14 @@ export default function Signup() {
                   placeholder="researcher@ocean.org"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#071731] border border-cyan-500/20 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
                 />
               </div>
             </div>
 
             {/* Password Field */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300 block">
+              <label className="text-xs font-semibold text-slate-700 block">
                 Password
               </label>
               <div className="relative">
@@ -242,12 +248,12 @@ export default function Signup() {
                   placeholder="Minimum 8 characters"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#071731] border border-cyan-500/20 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-700 transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -257,10 +263,10 @@ export default function Signup() {
               {formData.password && (
                 <div className="pt-1.5 space-y-1">
                   <div className="flex items-center justify-between text-[11px]">
-                    <span className="text-slate-400">Password Strength:</span>
-                    <span className="font-semibold text-cyan-300">{strength.label}</span>
+                    <span className="text-slate-500">Password Strength:</span>
+                    <span className="font-semibold text-slate-800">{strength.label}</span>
                   </div>
-                  <div className="grid grid-cols-4 gap-1 h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div className="grid grid-cols-4 gap-1 h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
                     <div className={`h-full ${strength.score >= 1 ? strength.color : 'bg-transparent'}`} />
                     <div className={`h-full ${strength.score >= 2 ? strength.color : 'bg-transparent'}`} />
                     <div className={`h-full ${strength.score >= 3 ? strength.color : 'bg-transparent'}`} />
@@ -272,7 +278,7 @@ export default function Signup() {
 
             {/* Confirm Password Field */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300 block">
+              <label className="text-xs font-semibold text-slate-700 block">
                 Confirm Password
               </label>
               <div className="relative">
@@ -286,12 +292,12 @@ export default function Signup() {
                   placeholder="Repeat your password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#071731] border border-cyan-500/20 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-700 transition-colors"
                 >
                   {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -300,17 +306,17 @@ export default function Signup() {
 
             {/* Terms and Conditions Checkbox */}
             <div className="pt-1">
-              <label className="flex items-start gap-2.5 cursor-pointer text-xs text-slate-300">
+              <label className="flex items-start gap-2.5 cursor-pointer text-xs text-slate-600">
                 <input
                   type="checkbox"
                   name="agreeTerms"
                   checked={formData.agreeTerms}
                   onChange={handleChange}
-                  className="mt-0.5 rounded border-slate-700 bg-[#071731] text-cyan-500 focus:ring-cyan-400"
+                  className="mt-0.5 rounded border-slate-300 bg-white text-slate-900 focus:ring-slate-900"
                 />
                 <span className="leading-relaxed">
                   I agree to the{' '}
-                  <span className="text-cyan-400 hover:underline">FloatChat Terms of Service</span>{' '}
+                  <span className="text-sky-600 font-medium">FloatChat Terms of Service</span>{' '}
                   and open scientific data sharing ethics.
                 </span>
               </label>
@@ -320,7 +326,7 @@ export default function Signup() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 px-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+              className="w-full py-3 px-4 rounded-xl text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 shadow-sm transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
             >
               {submitting ? (
                 <>
@@ -337,9 +343,9 @@ export default function Signup() {
           </form>
 
           {/* Footer Navigation Link */}
-          <div className="text-center pt-2 text-xs text-slate-400">
+          <div className="text-center pt-2 text-xs text-slate-600">
             Already have an account?{' '}
-            <Link to="/login" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
+            <Link to="/login" className="text-sky-600 hover:text-sky-700 font-semibold transition-colors">
               Sign In
             </Link>
           </div>

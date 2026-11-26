@@ -4,7 +4,7 @@ import { Layers, HelpCircle } from 'lucide-react';
 export default function MapLegend({ visualizationMode, onOpenInfoModal }) {
   return (
     <div className="p-3 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-md text-xs space-y-2 max-w-xs text-slate-800">
-      <div className="flex items-center justify-between pb-1.5 border-b border-slate-100">
+      <div className="flex items-center justify-between gap-4 pb-1.5 border-b border-slate-100">
         <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
           <Layers className="w-3 h-3 text-slate-500" />
           <span>Map Legend</span>

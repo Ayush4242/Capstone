@@ -64,25 +64,29 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-[#0a1628] text-slate-100">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white text-slate-900">
       {/* Left Column: Atmospheric Ocean Imagery & Storytelling (Desktop) */}
-      <div className="relative hidden lg:flex lg:w-1/2 flex-col justify-between p-12 overflow-hidden bg-cover bg-center"
+      <div
+        className="relative hidden lg:flex lg:w-1/2 flex-col justify-between p-12 overflow-hidden bg-cover bg-center"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80')`,
         }}
       >
-        {/* Deep blue ocean overlay */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#020b18] via-[#0a1e3d]/90 to-[#0d2f5e]/75 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/90 via-slate-900/75 to-sky-950/60" />
 
         {/* Brand Header */}
         <div className="relative z-10">
           <Link to="/" className="inline-flex items-center gap-3 text-white group">
-            <img src="/logo.jpg" alt="FloatChat" className="w-12 h-12 rounded-xl object-cover shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300" />
+            <img
+              src="/logo.jpg"
+              alt="FloatChat"
+              className="w-11 h-11 rounded-full object-cover ring-2 ring-white/40 shadow-md group-hover:scale-105 transition-transform duration-300"
+            />
             <div className="flex flex-col">
               <span className="text-2xl font-bold tracking-tight font-['Outfit',sans-serif]">
-                Float<span className="text-cyan-400">Chat</span>
+                FloatChat
               </span>
-              <span className="text-[11px] font-medium tracking-widest uppercase text-cyan-200/80 -mt-1">
+              <span className="text-[11px] font-medium tracking-widest uppercase text-sky-200/90 -mt-1">
                 AI Ocean Intelligence Platform
               </span>
             </div>
@@ -91,8 +95,8 @@ export default function Login() {
 
         {/* Narrative & Scientific Telemetry Preview */}
         <div className="relative z-10 max-w-lg space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/25 text-white text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 text-sky-300" />
             <span>Planetary Climate Telemetry</span>
           </div>
 
@@ -100,53 +104,55 @@ export default function Login() {
             "The ocean is the planetary heart of our climate system."
           </h2>
 
-          <p className="text-slate-300 text-sm leading-relaxed">
+          <p className="text-slate-200 text-sm leading-relaxed">
             Access calibrated temperature anomalies, salinity thermoclines, and depth profiles from over 3,900 autonomous ARGO floats traversing the world's oceans.
           </p>
 
-          <div className="p-4 rounded-xl bg-[#0a1e3d]/85 backdrop-blur-md border border-cyan-500/20 shadow-xl flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-300 shrink-0">
+          <div className="p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-lg flex items-center gap-4">
+            <div className="w-10 h-10 rounded-lg bg-white/15 border border-white/25 flex items-center justify-center text-sky-200 shrink-0">
               <Compass className="w-5 h-5" />
             </div>
             <div>
               <div className="text-xs font-semibold text-white">Global Observation Node</div>
-              <div className="text-[11px] text-cyan-400 font-mono">Real-time sync with ARGO NetCDF servers</div>
+              <div className="text-[11px] text-sky-200 font-mono">Real-time sync with ARGO NetCDF servers</div>
             </div>
           </div>
         </div>
 
         {/* Bottom citation */}
-        <div className="relative z-10 text-xs text-slate-400">
+        <div className="relative z-10 text-xs text-slate-300">
           In partnership with global ocean observation repositories: ARGO • NOAA • INCOIS • NASA
         </div>
       </div>
 
-      {/* Right Column: Login Form on Deep Blue */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-[#0a1628] relative">
+      {/* Right Column: Clean White Login Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-white relative">
         <div className="w-full max-w-md space-y-8">
           {/* Mobile Brand Link */}
-          <div className="lg:hidden flex items-center justify-between pb-6 border-b border-slate-700">
-            <Link to="/" className="flex items-center gap-2 text-white">
-              <img src="/logo.jpg" alt="FloatChat" className="w-8 h-8 rounded-lg object-cover" />
+          <div className="lg:hidden flex items-center justify-between pb-6 border-b border-slate-200">
+            <Link to="/" className="flex items-center gap-2.5 text-slate-900">
+              <img src="/logo.jpg" alt="FloatChat" className="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200" />
               <span className="font-bold text-lg font-['Outfit',sans-serif]">FloatChat</span>
             </Link>
-            <Link to="/" className="text-xs text-cyan-400 hover:underline">Return to Home</Link>
+            <Link to="/" className="text-xs text-sky-600 font-semibold hover:underline">
+              Return to Home
+            </Link>
           </div>
 
           {/* Form Header */}
           <div className="space-y-2">
-            <h1 className="text-3xl font-extrabold text-white font-['Outfit',sans-serif] tracking-tight">
+            <h1 className="text-3xl font-extrabold text-slate-900 font-['Outfit',sans-serif] tracking-tight">
               Welcome Back
             </h1>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-600 text-sm">
               Continue exploring the mysteries of our oceans.
             </p>
           </div>
 
           {/* Error Alert */}
           {errorMessage && (
-            <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2 animate-in fade-in">
-              <span className="w-2 h-2 rounded-full bg-rose-400 shrink-0" />
+            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2 animate-in fade-in">
+              <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
               <span>{errorMessage}</span>
             </div>
           )}
@@ -155,11 +161,11 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email Field */}
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-slate-300 block">
+              <label className="text-xs font-semibold text-slate-700 block">
                 Email Address
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
@@ -169,7 +175,7 @@ export default function Login() {
                   placeholder="oceanographer@floatchat.org"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0d2140] border border-slate-600/50 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
                 />
               </div>
             </div>
@@ -177,19 +183,19 @@ export default function Login() {
             {/* Password Field */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-medium text-slate-300 block">
+                <label className="text-xs font-semibold text-slate-700 block">
                   Password
                 </label>
                 <button
                   type="button"
                   onClick={handleForgotPassword}
-                  className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors cursor-pointer"
+                  className="text-xs text-sky-600 hover:text-sky-700 font-medium transition-colors cursor-pointer"
                 >
                   Forgot Password?
                 </button>
               </div>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
@@ -199,12 +205,12 @@ export default function Login() {
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#0d2140] border border-slate-600/50 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-700 transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -213,13 +219,13 @@ export default function Login() {
 
             {/* Remember Me */}
             <div className="flex items-center">
-              <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-300">
+              <label className="flex items-center gap-2 cursor-pointer text-xs text-slate-600">
                 <input
                   type="checkbox"
                   name="rememberMe"
                   checked={formData.rememberMe}
                   onChange={handleChange}
-                  className="rounded border-slate-600 bg-[#0d2140] text-cyan-500 focus:ring-cyan-400 focus:ring-offset-0"
+                  className="rounded border-slate-300 bg-white text-slate-900 focus:ring-slate-900"
                 />
                 <span>Remember this device for 30 days</span>
               </label>
@@ -229,7 +235,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 px-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full py-3 px-4 rounded-xl text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 shadow-sm transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {submitting ? (
                 <>
@@ -246,8 +252,8 @@ export default function Login() {
 
             {/* Divider */}
             <div className="relative my-4 flex items-center justify-center">
-              <div className="border-t border-slate-700 w-full" />
-              <span className="bg-[#0a1628] px-3 text-[11px] uppercase tracking-wider text-slate-500 absolute font-medium">
+              <div className="border-t border-slate-200 w-full" />
+              <span className="bg-white px-3 text-[11px] uppercase tracking-wider text-slate-400 absolute font-medium">
                 Or continue with
               </span>
             </div>
@@ -256,7 +262,7 @@ export default function Login() {
             <button
               type="button"
               onClick={handleGoogleAuth}
-              className="w-full py-2.5 px-4 rounded-xl border border-slate-600/50 hover:border-slate-500 bg-[#0d2140]/60 hover:bg-[#0d2140] text-slate-300 hover:text-white text-xs font-medium flex items-center justify-center gap-2.5 transition-all"
+              className="w-full py-2.5 px-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 text-xs font-medium flex items-center justify-center gap-2.5 transition-all shadow-xs"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -281,9 +287,9 @@ export default function Login() {
           </form>
 
           {/* Footer Navigation Link */}
-          <div className="text-center pt-2 text-xs text-slate-400">
+          <div className="text-center pt-2 text-xs text-slate-600">
             Don't have an ocean research account?{' '}
-            <Link to="/signup" className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">
+            <Link to="/signup" className="text-sky-600 hover:text-sky-700 font-semibold transition-colors">
               Create an Account
             </Link>
           </div>
