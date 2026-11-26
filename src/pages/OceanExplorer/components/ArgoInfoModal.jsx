@@ -5,7 +5,7 @@ export default function ArgoInfoModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
+    <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in">
       <div className="relative w-full max-w-xl rounded-3xl bg-[#030914] border border-cyan-400/40 p-6 sm:p-8 shadow-2xl space-y-6">
         {/* Close Button */}
         <button
