@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Tooltip, Polyline, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Tooltip, Polyline, ZoomControl, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import MapLegend from './MapLegend';
@@ -8,12 +8,9 @@ import {
   Search,
   Compass,
   X,
-  Layers,
-  HelpCircle,
 } from 'lucide-react';
 import { OCEAN_REGIONS } from '../data/regionsData';
 
-// Map Recenter Controller Sub-component
 function MapRecenter({ center, zoom }) {
   const map = useMap();
   useEffect(() => {
@@ -24,36 +21,34 @@ function MapRecenter({ center, zoom }) {
   return null;
 }
 
-// Marker Color Generator based on active visualization mode
 function getMarkerColor(float, mode, isSelected) {
-  if (isSelected) return '#f59e0b'; // Crisp amber for selected
+  if (isSelected) return '#f59e0b';
 
   if (mode === 'temperature') {
     const t = float.surfaceTemp;
-    if (t < 5) return '#38bdf8'; // Polar blue
-    if (t < 18) return '#14b8a6'; // Temperate teal
-    if (t < 26) return '#f59e0b'; // Warm amber
-    return '#ef4444'; // Hot red
+    if (t < 5) return '#38bdf8';
+    if (t < 18) return '#14b8a6';
+    if (t < 26) return '#f59e0b';
+    return '#ef4444';
   }
 
   if (mode === 'salinity') {
     const s = float.surfaceSalinity;
-    if (s < 34.0) return '#38bdf8'; // Fresh
-    if (s < 35.8) return '#0284c7'; // Standard
-    return '#6366f1'; // High salinity
+    if (s < 34.0) return '#38bdf8';
+    if (s < 35.8) return '#0284c7';
+    return '#6366f1';
   }
 
   if (mode === 'oxygen') {
     const o = float.dissolvedOxygen;
-    if (!o || o < 2.0) return '#f43f5e'; // Hypoxic
-    if (o < 5.0) return '#38bdf8'; // Moderate
-    return '#10b981'; // Well-oxygenated
+    if (!o || o < 2.0) return '#f43f5e';
+    if (o < 5.0) return '#38bdf8';
+    return '#10b981';
   }
 
-  return '#0ea5e9'; // Clean sky blue
+  return '#0284c7';
 }
 
-// Custom Leaflet DivIcon Maker (Minimalist, Precision Engineering)
 function createFloatIcon(float, mode, isSelected) {
   const color = getMarkerColor(float, mode, isSelected);
   const size = isSelected ? 22 : 16;
@@ -66,7 +61,7 @@ function createFloatIcon(float, mode, isSelected) {
         border-radius: 9999px; 
         background: ${color}; 
         border: 2px solid #ffffff; 
-        box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.3);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -100,7 +95,7 @@ export default function OceanMap({
 }) {
   const [showWelcome, setShowWelcome] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeBasemap, setActiveBasemap] = useState('ocean'); // 'ocean' | 'satellite' | 'osm'
+  const [activeBasemap, setActiveBasemap] = useState('ocean');
 
   const basemapConfigs = {
     ocean: {
@@ -143,10 +138,10 @@ export default function OceanMap({
   }, [selectedFloat]);
 
   return (
-    <div className="relative w-full h-[620px] rounded-2xl overflow-hidden border border-white/[0.08] shadow-lg bg-[#07090e] flex flex-col">
+    <div className="relative w-full h-[620px] rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-slate-100 flex flex-col">
       {/* Top Map Control Bar */}
       <div className="absolute top-3 left-3 right-3 z-[400] flex flex-col md:flex-row items-center justify-between gap-2.5 pointer-events-none">
-        {/* Left: Search & Quick Region Shortcuts */}
+        {/* Left: Search & Shortcuts */}
         <div className="flex flex-wrap items-center gap-2 pointer-events-auto w-full md:w-auto">
           <form onSubmit={handleSearch} className="relative w-full sm:w-60">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -157,20 +152,20 @@ export default function OceanMap({
               placeholder="Search ocean region..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-[#0c1017]/95 border border-white/[0.1] text-white placeholder-slate-500 text-xs font-mono backdrop-blur-md focus:outline-none focus:border-slate-400 shadow-sm"
+              className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-white/95 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs font-mono backdrop-blur-md focus:outline-none focus:border-slate-400 shadow-xs"
             />
           </form>
 
           {/* Quick Region Shortcuts */}
-          <div className="hidden sm:flex items-center gap-1 p-1 rounded-lg bg-[#0c1017]/95 border border-white/[0.08] backdrop-blur-md shadow-sm">
+          <div className="hidden sm:flex items-center gap-1 p-1 rounded-lg bg-white/95 border border-slate-200 backdrop-blur-md shadow-xs">
             {OCEAN_REGIONS.slice(1, 5).map((reg) => (
               <button
                 key={reg.id}
                 onClick={() => onSelectRegion(reg.id)}
-                className={`px-2 py-1 rounded-md text-[11px] font-mono transition-colors ${
+                className={`px-2 py-1 rounded-md text-[11px] font-mono whitespace-nowrap transition-colors ${
                   selectedRegion.id === reg.id
-                    ? 'bg-slate-800 text-white font-medium border border-white/10'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-slate-900 text-white font-medium'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 {reg.label}
@@ -179,16 +174,16 @@ export default function OceanMap({
           </div>
         </div>
 
-        {/* Right: Layer Mode Selector & Basemap Switcher */}
+        {/* Right: Layer Mode & Basemap Selector */}
         <div className="flex items-center gap-2 pointer-events-auto self-end md:self-auto">
           {/* Layer Selector */}
-          <div className="flex items-center gap-1 p-1 rounded-lg bg-[#0c1017]/95 border border-white/[0.08] backdrop-blur-md shadow-sm text-xs">
+          <div className="flex items-center gap-1 p-1 rounded-lg bg-white/95 border border-slate-200 backdrop-blur-md shadow-xs text-xs">
             <button
               onClick={() => setVisualizationMode('locations')}
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 visualizationMode === 'locations'
-                  ? 'bg-slate-800 text-white border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-slate-900 text-white'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Locations
@@ -197,8 +192,8 @@ export default function OceanMap({
               onClick={() => setVisualizationMode('temperature')}
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 visualizationMode === 'temperature'
-                  ? 'bg-slate-800 text-white border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-slate-900 text-white'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Temperature
@@ -207,8 +202,8 @@ export default function OceanMap({
               onClick={() => setVisualizationMode('salinity')}
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 visualizationMode === 'salinity'
-                  ? 'bg-slate-800 text-white border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-slate-900 text-white'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Salinity
@@ -217,8 +212,8 @@ export default function OceanMap({
               onClick={() => setVisualizationMode('oxygen')}
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 visualizationMode === 'oxygen'
-                  ? 'bg-slate-800 text-white border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-slate-900 text-white'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Oxygen
@@ -226,33 +221,33 @@ export default function OceanMap({
           </div>
 
           {/* Basemap Switcher */}
-          <div className="hidden sm:flex items-center gap-1 p-1 rounded-lg bg-[#0c1017]/95 border border-white/[0.08] backdrop-blur-md shadow-sm text-xs">
+          <div className="hidden sm:flex items-center gap-1 p-1 rounded-lg bg-white/95 border border-slate-200 backdrop-blur-md shadow-xs text-xs">
             <button
               onClick={() => setActiveBasemap('ocean')}
-              className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
+              className={`px-2 py-1 rounded-md font-mono text-[11px] whitespace-nowrap transition-colors ${
                 activeBasemap === 'ocean'
-                  ? 'bg-slate-800 text-white font-medium border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-slate-900 text-white font-medium'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Ocean Base
             </button>
             <button
               onClick={() => setActiveBasemap('satellite')}
-              className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
+              className={`px-2 py-1 rounded-md font-mono text-[11px] whitespace-nowrap transition-colors ${
                 activeBasemap === 'satellite'
-                  ? 'bg-slate-800 text-white font-medium border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-slate-900 text-white font-medium'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Satellite
             </button>
             <button
               onClick={() => setActiveBasemap('osm')}
-              className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
+              className={`px-2 py-1 rounded-md font-mono text-[11px] whitespace-nowrap transition-colors ${
                 activeBasemap === 'osm'
-                  ? 'bg-slate-800 text-white font-medium border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-slate-900 text-white font-medium'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               OSM
@@ -262,7 +257,7 @@ export default function OceanMap({
           {/* Reset Global View Button */}
           <button
             onClick={onResetGlobalView}
-            className="p-1.5 rounded-lg bg-[#0c1017]/95 border border-white/[0.08] text-slate-400 hover:text-white backdrop-blur-md shadow-sm transition-colors"
+            className="p-1.5 rounded-lg bg-white/95 border border-slate-200 text-slate-600 hover:text-slate-900 backdrop-blur-md shadow-xs transition-colors"
             title="Reset to global world view"
           >
             <RotateCcw className="w-4 h-4" />
@@ -272,20 +267,20 @@ export default function OceanMap({
 
       {/* Dismissible First-Time User Guide */}
       {showWelcome && (
-        <div className="absolute top-16 left-3 right-3 sm:left-auto sm:right-3 z-[400] max-w-sm p-3 rounded-xl bg-[#0c1017]/95 backdrop-blur-md border border-white/[0.1] shadow-lg text-xs space-y-1">
+        <div className="absolute top-16 left-3 right-3 sm:left-auto sm:right-3 z-[400] max-w-sm p-3 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-md text-xs space-y-1">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-slate-200 font-medium flex items-center gap-1.5 text-[11px]">
-              <Compass className="w-3.5 h-3.5 text-sky-400" />
+            <span className="font-mono text-slate-800 font-medium flex items-center gap-1.5 text-[11px]">
+              <Compass className="w-3.5 h-3.5 text-sky-600" />
               <span>Interactive Ocean Map Guide</span>
             </span>
             <button
               onClick={() => setShowWelcome(false)}
-              className="text-slate-400 hover:text-white"
+              className="text-slate-400 hover:text-slate-700"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
-          <p className="text-slate-400 text-[11px] leading-relaxed">
+          <p className="text-slate-600 text-[11px] leading-relaxed">
             Select any float marker to inspect real vertical CTD depth profiles, or search regions above.
           </p>
         </div>
@@ -298,9 +293,11 @@ export default function OceanMap({
         minZoom={2}
         maxZoom={12}
         scrollWheelZoom={true}
+        zoomControl={false}
         className="w-full h-full z-0"
-        style={{ background: '#07090e' }}
+        style={{ background: '#f8fafc' }}
       >
+        <ZoomControl position="bottomright" />
         <MapRecenter center={mapCenter} zoom={mapZoom} />
 
         <TileLayer
@@ -323,7 +320,7 @@ export default function OceanMap({
           <Polyline
             positions={trajectoryPositions}
             pathOptions={{
-              color: '#38bdf8',
+              color: '#0284c7',
               weight: 2,
               dashArray: '4, 4',
               opacity: 0.85,
@@ -346,15 +343,15 @@ export default function OceanMap({
               }}
             >
               <Tooltip direction="top" offset={[0, -10]} opacity={1}>
-                <div className="p-2 rounded-lg bg-[#0c1017] border border-white/10 text-slate-200 text-xs shadow-md space-y-1 font-mono">
-                  <div className="flex items-center justify-between gap-3 font-bold text-white">
+                <div className="p-2 rounded-lg bg-white border border-slate-200 text-slate-800 text-xs shadow-md space-y-1 font-mono">
+                  <div className="flex items-center justify-between gap-3 font-bold text-slate-900">
                     <span>{float.id}</span>
-                    <span className="text-[10px] text-slate-400 font-sans">{float.platform}</span>
+                    <span className="text-[10px] text-slate-500 font-sans">{float.platform}</span>
                   </div>
-                  <div className="text-[11px] text-slate-300 font-sans">
+                  <div className="text-[11px] text-slate-600 font-sans">
                     {float.region}
                   </div>
-                  <div className="grid grid-cols-2 gap-2 text-[10px] pt-0.5 border-t border-white/[0.08] text-slate-400">
+                  <div className="grid grid-cols-2 gap-2 text-[10px] pt-0.5 border-t border-slate-100 text-slate-500">
                     <span>Temp: {float.surfaceTemp}°C</span>
                     <span>Sal: {float.surfaceSalinity} PSU</span>
                   </div>
@@ -374,8 +371,8 @@ export default function OceanMap({
       </div>
 
       {/* Bottom Right Region Indicator */}
-      <div className="absolute bottom-3 right-3 z-[400] px-2.5 py-1 rounded-md bg-[#0c1017]/95 border border-white/[0.08] text-[11px] font-mono text-slate-400 hidden sm:flex items-center gap-1.5">
-        <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+      <div className="absolute bottom-3 right-3 z-[400] px-2.5 py-1 rounded-md bg-white/95 border border-slate-200 text-[11px] font-mono text-slate-600 hidden sm:flex items-center gap-1.5 shadow-xs">
+        <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
         <span>Region: {selectedRegion.label}</span>
       </div>
     </div>

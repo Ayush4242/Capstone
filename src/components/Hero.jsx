@@ -12,14 +12,14 @@ export default function Hero() {
     <section className="relative min-h-[96vh] flex items-center justify-between pt-36 pb-28 px-6 sm:px-12 lg:px-16 overflow-hidden">
       {/* Background Image: High-Definition Ocean ARGO Float & Marine Life */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.09] origin-bottom"
         style={{
           backgroundImage: `url('/hero-ocean-argo.jpg')`,
         }}
       >
-        {/* Soft, graceful vignette that keeps the text readable while leaving the float and whales unobstructed */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/90 via-[#020617]/40 to-transparent lg:w-2/3" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/70 via-transparent to-[#020617]" />
+        {/* Crisp left scrim to ensure HTML typography has zero visual clash while leaving the ARGO float and dolphins clear */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030b17] via-[#030b17]/95 via-35% to-transparent lg:w-3/5" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030b17]/80 via-transparent to-[#030b17]/90" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col justify-between min-h-[75vh]">

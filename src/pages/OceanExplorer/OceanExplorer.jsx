@@ -41,7 +41,7 @@ export default function OceanExplorer() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col font-['Inter',sans-serif]">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-['Inter',sans-serif]">
       {/* Top Header */}
       <ExplorerHeader activeTab={activeTab} setActiveTab={setActiveTab} />
 

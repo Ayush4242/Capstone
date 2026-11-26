@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Waves, Eye, EyeOff, Lock, Mail, User, ArrowRight, Loader2, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, ArrowRight, Loader2, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 
@@ -94,7 +94,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-[#030b1a] text-slate-100">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-[#0a1628] text-slate-100">
       {/* Left Column: Atmospheric Ocean Imagery & Storytelling (Desktop) */}
       <div 
         className="relative hidden lg:flex lg:w-1/2 flex-col justify-between p-12 overflow-hidden bg-cover bg-center"
@@ -102,17 +102,12 @@ export default function Signup() {
           backgroundImage: `url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1800&q=80')`,
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#020b18] via-[#031535]/85 to-[#042456]/70 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-depth-grid opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#020b18] via-[#0a1e3d]/90 to-[#0d2f5e]/75 mix-blend-multiply" />
 
         {/* Brand Header */}
         <div className="relative z-10">
           <Link to="/" className="inline-flex items-center gap-3 text-white group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 p-0.5 shadow-lg shadow-cyan-500/30">
-              <div className="w-full h-full bg-[#051329] rounded-[10px] flex items-center justify-center">
-                <Waves className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
-              </div>
-            </div>
+            <img src="/logo.jpg" alt="FloatChat" className="w-12 h-12 rounded-xl object-cover shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300" />
             <div className="flex flex-col">
               <span className="text-2xl font-bold tracking-tight font-['Outfit',sans-serif]">
                 Float<span className="text-cyan-400">Chat</span>
@@ -157,13 +152,13 @@ export default function Signup() {
         </div>
       </div>
 
-      {/* Right Column: Clean Registration Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-[#030b1a] relative">
+      {/* Right Column: Clean Registration Form on Deep Blue */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-[#0a1628] relative">
         <div className="w-full max-w-md space-y-7">
           {/* Mobile Brand Link */}
-          <div className="lg:hidden flex items-center justify-between pb-6 border-b border-slate-800">
+          <div className="lg:hidden flex items-center justify-between pb-6 border-b border-slate-700">
             <Link to="/" className="flex items-center gap-2 text-white">
-              <Waves className="w-6 h-6 text-cyan-400" />
+              <img src="/logo.jpg" alt="FloatChat" className="w-8 h-8 rounded-lg object-cover" />
               <span className="font-bold text-lg font-['Outfit',sans-serif]">FloatChat</span>
             </Link>
             <Link to="/" className="text-xs text-cyan-400 hover:underline">Return to Home</Link>

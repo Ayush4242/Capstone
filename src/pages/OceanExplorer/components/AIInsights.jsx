@@ -66,19 +66,19 @@ export default function AIInsights({ selectedFloat, selectedRegion }) {
   const activeInsightText = customResponse || getGroundTruthInsight(selectedPrompt);
 
   return (
-    <div className="rounded-2xl bg-[#0c1017] border border-white/[0.08] p-5 sm:p-6 shadow-sm space-y-4">
+    <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4 text-slate-900">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-white/[0.08]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-200">
         <div className="flex items-center gap-2">
-          <Bot className="w-4 h-4 text-slate-400" />
-          <h3 className="text-base font-bold text-white font-['Outfit',sans-serif]">
+          <Bot className="w-4 h-4 text-sky-600" />
+          <h3 className="text-base font-bold text-slate-900 font-['Outfit',sans-serif]">
             Oceanographic Analysis
           </h3>
           <span className="text-[11px] font-mono text-slate-500">
             • Grounded in ARGO observations
           </span>
         </div>
-        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-white/[0.06] text-slate-400">
+        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-medium">
           Float {selectedFloat?.id || '--'}
         </span>
       </div>
@@ -89,8 +89,8 @@ export default function AIInsights({ selectedFloat, selectedRegion }) {
           onClick={() => handleActionClick('explain-measurements')}
           className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
             selectedPrompt === 'explain-measurements' && !customResponse
-              ? 'bg-slate-800 text-white font-medium border border-white/10'
-              : 'bg-[#07090e] border border-white/[0.06] text-slate-400 hover:text-white'
+              ? 'bg-slate-900 text-white font-medium border border-slate-900 shadow-xs'
+              : 'bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           Explain Measurements
@@ -100,8 +100,8 @@ export default function AIInsights({ selectedFloat, selectedRegion }) {
           onClick={() => handleActionClick('summarize-region')}
           className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
             selectedPrompt === 'summarize-region' && !customResponse
-              ? 'bg-slate-800 text-white font-medium border border-white/10'
-              : 'bg-[#07090e] border border-white/[0.06] text-slate-400 hover:text-white'
+              ? 'bg-slate-900 text-white font-medium border border-slate-900 shadow-xs'
+              : 'bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           Summarize Region
@@ -111,8 +111,8 @@ export default function AIInsights({ selectedFloat, selectedRegion }) {
           onClick={() => handleActionClick('identify-anomalies')}
           className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
             selectedPrompt === 'identify-anomalies' && !customResponse
-              ? 'bg-slate-800 text-white font-medium border border-white/10'
-              : 'bg-[#07090e] border border-white/[0.06] text-slate-400 hover:text-white'
+              ? 'bg-slate-900 text-white font-medium border border-slate-900 shadow-xs'
+              : 'bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           Identify Anomalies
@@ -122,8 +122,8 @@ export default function AIInsights({ selectedFloat, selectedRegion }) {
           onClick={() => handleActionClick('explain-profile')}
           className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
             selectedPrompt === 'explain-profile' && !customResponse
-              ? 'bg-slate-800 text-white font-medium border border-white/10'
-              : 'bg-[#07090e] border border-white/[0.06] text-slate-400 hover:text-white'
+              ? 'bg-slate-900 text-white font-medium border border-slate-900 shadow-xs'
+              : 'bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
         >
           Explain Depth Sounding
@@ -131,8 +131,8 @@ export default function AIInsights({ selectedFloat, selectedRegion }) {
       </div>
 
       {/* Grounded Insight Box */}
-      <div className="p-4 rounded-xl bg-[#07090e] border border-white/[0.06] space-y-2">
-        <p className="text-slate-300 text-xs leading-relaxed whitespace-pre-line font-mono">
+      <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+        <p className="text-slate-700 text-xs leading-relaxed whitespace-pre-line font-mono">
           {activeInsightText}
         </p>
       </div>
@@ -144,12 +144,12 @@ export default function AIInsights({ selectedFloat, selectedRegion }) {
           placeholder="Inquire about this float's observations..."
           value={customQuestion}
           onChange={(e) => setCustomQuestion(e.target.value)}
-          className="flex-1 px-3.5 py-2 rounded-lg bg-[#07090e] border border-white/[0.1] text-white placeholder-slate-600 text-xs font-mono focus:outline-none focus:border-slate-400"
+          className="flex-1 px-3.5 py-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs font-mono focus:outline-none focus:border-sky-400 focus:bg-white transition-colors"
         />
         <button
           type="submit"
           disabled={loading || !customQuestion.trim()}
-          className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors border border-white/10"
+          className="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs flex items-center gap-1.5 disabled:opacity-50 transition-colors shadow-xs"
         >
           {loading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
           <span>Analyze</span>

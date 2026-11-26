@@ -28,7 +28,7 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <ToastProvider>
-          <div className="flex flex-col min-h-screen bg-[#020617] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
+          <div className="flex flex-col min-h-screen bg-white text-slate-900 selection:bg-sky-500/20 selection:text-sky-900">
             <Routes>
               <Route path="/" element={<HomeLayout />} />
               <Route path="/explorer" element={<OceanExplorer />} />

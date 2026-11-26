@@ -2,12 +2,12 @@
 
 @layer base {
   * {
-    border-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 0, 0, 0.08);
   }
 
   body {
-    background-color: #07090e;
-    color: #e6edf3;
+    background-color: #ffffff;
+    color: #0f172a;
     overflow-x: hidden;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
     letter-spacing: -0.01em;
@@ -19,40 +19,40 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #07090e;
+    background: #f8fafc;
   }
   ::-webkit-scrollbar-thumb {
-    background: #21262d;
+    background: #cbd5e1;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #38414e;
+    background: #94a3b8;
   }
 }
 
 /* Institutional Matte Surface */
 .pro-surface {
-  background: rgba(13, 17, 23, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .pro-surface-hover:hover {
-  background: rgba(18, 23, 33, 0.95);
-  border-color: rgba(255, 255, 255, 0.16);
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.16);
 }
 
 /* Subtle data contrast text */
 .text-data-primary {
-  color: #f0f6fc;
+  color: #0f172a;
 }
 
 .text-data-secondary {
-  color: #8b949e;
+  color: #475569;
 }
 
 .text-data-accent {
-  color: #38bdf8;
+  color: #0284c7;
 }

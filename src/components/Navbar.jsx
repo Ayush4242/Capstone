@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Waves, Menu, X, ArrowRight, User, LogOut, Compass, Sparkles } from 'lucide-react';
+import { Menu, X, ArrowRight, User, LogOut, Compass } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
@@ -36,78 +36,74 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#020617]/95 backdrop-blur-2xl border-b border-cyan-500/15 py-4 shadow-2xl shadow-black/60'
-          : 'bg-[#020617]/90 backdrop-blur-xl border-b border-cyan-500/10 py-5'
+          ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200 py-3.5 shadow-sm'
+          : 'bg-white/90 backdrop-blur-md border-b border-slate-100 py-4.5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between">
         {/* Brand Logo */}
         <Link
           to="/"
-          className="flex items-center gap-3 group text-white transition-all shrink-0"
+          className="flex items-center gap-3 group transition-opacity"
         >
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 p-0.5 shadow-md shadow-cyan-500/25">
-            <div className="w-full h-full bg-[#020617] rounded-[10px] flex items-center justify-center">
-              <Waves className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-black tracking-wider uppercase font-['Outfit',sans-serif] text-white">
-              Float<span className="text-cyan-400">Chat</span>
+          <img src="/logo.jpg" alt="FloatChat" className="w-9 h-9 rounded-lg object-cover shadow-sm group-hover:scale-105 transition-transform" />
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-lg font-bold tracking-tight font-['Outfit',sans-serif] text-slate-900">
+              FloatChat
             </span>
           </div>
         </Link>
 
-        {/* Clean, Spacious Navigation Links matching user's concept */}
-        <nav className="hidden lg:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-slate-300">
+        {/* Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider text-slate-600">
           <Link
             to="/explorer"
-            className="hover:text-cyan-400 text-cyan-300 transition-colors py-1 flex items-center gap-1.5"
+            className="text-slate-900 hover:text-sky-600 transition-colors py-1 flex items-center gap-1.5"
           >
             <span>Data Explorer</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
           </Link>
           <button
             onClick={() => handleNavClick('argo-simulator')}
-            className="hover:text-cyan-400 transition-colors py-1 cursor-pointer"
+            className="hover:text-slate-900 transition-colors py-1 cursor-pointer"
           >
             ARGO Observations
           </button>
           <button
             onClick={() => handleNavClick('features')}
-            className="hover:text-cyan-400 transition-colors py-1 cursor-pointer"
+            className="hover:text-slate-900 transition-colors py-1 cursor-pointer"
           >
             Marine Ecosystems
           </button>
           <button
             onClick={() => handleNavClick('features')}
-            className="hover:text-cyan-400 transition-colors py-1 cursor-pointer"
+            className="hover:text-slate-900 transition-colors py-1 cursor-pointer"
           >
             Climate Impacts
           </button>
           <button
             onClick={() => handleNavClick('mission')}
-            className="hover:text-cyan-400 transition-colors py-1 cursor-pointer"
+            className="hover:text-slate-900 transition-colors py-1 cursor-pointer"
           >
             Mission
           </button>
         </nav>
 
-        {/* Desktop Action Buttons */}
-        <div className="hidden md:flex items-center gap-5 shrink-0">
+        {/* Action Buttons */}
+        <div className="hidden md:flex items-center gap-4 shrink-0">
           {isAuthenticated ? (
             <div className="flex items-center gap-3">
               <Link
                 to="/dashboard"
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-950/80 border border-cyan-400/40 text-cyan-300 hover:border-cyan-300 text-xs font-semibold transition-all hover:scale-105"
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-800 hover:bg-slate-200 text-xs font-semibold transition-all"
               >
-                <Compass className="w-4 h-4 text-cyan-400" />
+                <Compass className="w-4 h-4 text-sky-600" />
                 <span>Console</span>
               </Link>
               <button
                 onClick={logout}
                 title="Sign out"
-                className="p-2 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                className="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors"
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -116,19 +112,16 @@ export default function Navbar() {
             <>
               <Link
                 to="/login"
-                className="text-xs font-semibold text-slate-300 hover:text-white transition-colors tracking-wider uppercase py-2"
+                className="text-xs font-semibold text-slate-700 hover:text-slate-900 transition-colors tracking-wider uppercase py-2"
               >
                 Sign In
               </Link>
               <Link
                 to="/signup"
-                className="relative inline-flex items-center justify-center p-[1px] overflow-hidden rounded-xl font-bold text-xs text-white group"
+                className="inline-flex items-center justify-center px-4 py-2 rounded-lg font-semibold text-xs text-white bg-slate-900 hover:bg-slate-800 shadow-sm transition-colors gap-1.5"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-teal-400 to-blue-600 rounded-xl" />
-                <span className="relative px-5 py-2.5 transition-all ease-out bg-[#020617] rounded-[11px] group-hover:bg-opacity-0 flex items-center gap-2">
-                  <span>Get Started</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                </span>
+                <span>Get Started</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </>
           )}
@@ -138,7 +131,7 @@ export default function Navbar() {
         <div className="lg:hidden flex items-center gap-2">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2.5 rounded-xl text-slate-300 hover:text-white bg-slate-900 border border-slate-800"
+            className="p-2 rounded-lg text-slate-700 hover:text-slate-900 bg-slate-100"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -148,47 +141,47 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#020617]/98 backdrop-blur-2xl border-b border-cyan-500/20 px-6 pt-5 pb-7 mt-3 space-y-5">
-          <div className="flex flex-col space-y-3.5 text-sm font-semibold uppercase tracking-wider text-slate-200">
+        <div className="lg:hidden bg-white border-b border-slate-200 px-6 pt-4 pb-6 mt-3 space-y-4">
+          <div className="flex flex-col space-y-3 text-sm font-semibold uppercase tracking-wider text-slate-700">
             <Link
               to="/explorer"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-left py-1 text-cyan-300 font-bold"
+              className="py-1 text-sky-600 font-bold"
             >
               Data Explorer (Interactive Map)
             </Link>
             <button
               onClick={() => handleNavClick('argo-simulator')}
-              className="text-left py-1 hover:text-cyan-400"
+              className="text-left py-1 hover:text-slate-900"
             >
               ARGO Observations
             </button>
             <button
               onClick={() => handleNavClick('features')}
-              className="text-left py-1 hover:text-cyan-400"
+              className="text-left py-1 hover:text-slate-900"
             >
               Marine Ecosystems
             </button>
             <button
               onClick={() => handleNavClick('features')}
-              className="text-left py-1 hover:text-cyan-400"
+              className="text-left py-1 hover:text-slate-900"
             >
               Climate Impacts
             </button>
             <button
               onClick={() => handleNavClick('mission')}
-              className="text-left py-1 hover:text-cyan-400"
+              className="text-left py-1 hover:text-slate-900"
             >
               Mission
             </button>
           </div>
 
-          <div className="pt-4 border-t border-slate-800 flex flex-col gap-3">
+          <div className="pt-4 border-t border-slate-200 flex flex-col gap-2.5">
             {isAuthenticated ? (
               <Link
                 to="/dashboard"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center py-3 rounded-xl bg-cyan-950 border border-cyan-500/40 text-cyan-300 font-bold text-xs"
+                className="w-full text-center py-2.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-800 font-bold text-xs"
               >
                 Go to Ocean Console
               </Link>
@@ -197,14 +190,14 @@ export default function Navbar() {
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-3 rounded-xl border border-slate-700 text-slate-200 font-bold text-xs"
+                  className="w-full text-center py-2.5 rounded-lg border border-slate-300 text-slate-800 font-bold text-xs"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/signup"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xs shadow-lg shadow-cyan-500/30"
+                  className="w-full text-center py-2.5 rounded-lg bg-slate-900 text-white font-bold text-xs shadow-sm"
                 >
                   Get Started Free
                 </Link>

@@ -7,7 +7,7 @@ export default function OceanCharts({ selectedFloat }) {
 
   if (!selectedFloat) {
     return (
-      <div className="p-8 rounded-2xl bg-[#0c1017] border border-white/[0.08] text-center text-slate-500 font-mono text-xs">
+      <div className="p-8 rounded-2xl bg-white border border-slate-200 text-center text-slate-500 font-mono text-xs shadow-xs">
         Select an ARGO float marker to visualize depth sounding profiles.
       </div>
     );
@@ -82,28 +82,28 @@ export default function OceanCharts({ selectedFloat }) {
     return {
       autosize: true,
       paper_bgcolor: 'transparent',
-      plot_bgcolor: '#090d14',
-      font: { family: 'Inter, monospace', color: '#94a3b8' },
+      plot_bgcolor: '#f8fafc',
+      font: { family: 'Inter, monospace', color: '#475569' },
       margin: { l: 65, r: 35, t: 25, b: 50 },
       xaxis: {
-        title: { text: xTitle, font: { size: 11, color: '#cbd5e1' } },
-        gridcolor: '#1b222d',
-        zerolinecolor: '#2d3748',
-        tickfont: { color: '#94a3b8', size: 10 },
+        title: { text: xTitle, font: { size: 11, color: '#1e293b' } },
+        gridcolor: '#e2e8f0',
+        zerolinecolor: '#cbd5e1',
+        tickfont: { color: '#64748b', size: 10 },
       },
       yaxis: {
-        title: { text: 'Water Depth (meters / dbar)', font: { size: 11, color: '#cbd5e1' } },
+        title: { text: 'Water Depth (meters / dbar)', font: { size: 11, color: '#1e293b' } },
         autorange: 'reversed',
-        gridcolor: '#1b222d',
-        zerolinecolor: '#2d3748',
-        tickfont: { color: '#94a3b8', size: 10 },
+        gridcolor: '#e2e8f0',
+        zerolinecolor: '#cbd5e1',
+        tickfont: { color: '#64748b', size: 10 },
       },
       legend: {
         x: 0.72,
         y: 0.05,
-        bgcolor: '#0c1017',
-        bordercolor: '#21262d',
-        font: { color: '#cbd5e1', size: 10 },
+        bgcolor: 'rgba(255, 255, 255, 0.9)',
+        bordercolor: '#cbd5e1',
+        font: { color: '#1e293b', size: 10 },
       },
       hovermode: 'closest',
     };
@@ -118,8 +118,8 @@ export default function OceanCharts({ selectedFloat }) {
         type: 'scatter',
         mode: 'lines+markers',
         name: 'Surface Temperature (°C)',
-        line: { color: '#38bdf8', width: 2.5 },
-        marker: { size: 6, color: '#e0f2fe' },
+        line: { color: '#0284c7', width: 2.5 },
+        marker: { size: 6, color: '#0369a1' },
         hovertemplate: 'Date: %{x}<br>Temp: %{y:.2f} °C<extra></extra>',
       },
       {
@@ -129,8 +129,8 @@ export default function OceanCharts({ selectedFloat }) {
         mode: 'lines+markers',
         name: 'Salinity (PSU)',
         yaxis: 'y2',
-        line: { color: '#818cf8', width: 2, dash: 'dot' },
-        marker: { size: 5, color: '#c7d2fe' },
+        line: { color: '#6366f1', width: 2, dash: 'dot' },
+        marker: { size: 5, color: '#4f46e5' },
         hovertemplate: 'Date: %{x}<br>Salinity: %{y:.2f} PSU<extra></extra>',
       },
     ];
@@ -140,61 +140,61 @@ export default function OceanCharts({ selectedFloat }) {
     return {
       autosize: true,
       paper_bgcolor: 'transparent',
-      plot_bgcolor: '#090d14',
-      font: { family: 'Inter, monospace', color: '#94a3b8' },
+      plot_bgcolor: '#f8fafc',
+      font: { family: 'Inter, monospace', color: '#475569' },
       margin: { l: 55, r: 55, t: 25, b: 50 },
       xaxis: {
-        title: { text: 'Observation Date', font: { size: 11, color: '#cbd5e1' } },
-        gridcolor: '#1b222d',
-        tickfont: { color: '#94a3b8', size: 10 },
+        title: { text: 'Observation Date', font: { size: 11, color: '#1e293b' } },
+        gridcolor: '#e2e8f0',
+        tickfont: { color: '#64748b', size: 10 },
       },
       yaxis: {
-        title: { text: 'Sea Surface Temp (°C)', font: { size: 11, color: '#38bdf8' } },
-        gridcolor: '#1b222d',
-        tickfont: { color: '#94a3b8', size: 10 },
+        title: { text: 'Sea Surface Temp (°C)', font: { size: 11, color: '#0284c7' } },
+        gridcolor: '#e2e8f0',
+        tickfont: { color: '#64748b', size: 10 },
       },
       yaxis2: {
-        title: { text: 'Salinity (PSU)', font: { size: 11, color: '#818cf8' } },
+        title: { text: 'Salinity (PSU)', font: { size: 11, color: '#6366f1' } },
         overlaying: 'y',
         side: 'right',
         gridcolor: 'transparent',
-        tickfont: { color: '#94a3b8', size: 10 },
+        tickfont: { color: '#64748b', size: 10 },
       },
       legend: {
         x: 0.05,
         y: 1.1,
         orientation: 'h',
         bgcolor: 'transparent',
-        font: { color: '#cbd5e1', size: 10 },
+        font: { color: '#1e293b', size: 10 },
       },
       hovermode: 'x unified',
     };
   }, []);
 
   return (
-    <div id="charts-section" className="rounded-2xl bg-[#0c1017] border border-white/[0.08] p-5 sm:p-6 shadow-sm space-y-4">
+    <div id="charts-section" className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4 text-slate-900">
       {/* Chart Header & Controls */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-4 border-b border-white/[0.08]">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-4 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="text-base font-bold text-white font-['Outfit',sans-serif]">
+            <h3 className="text-base font-bold text-slate-900 font-['Outfit',sans-serif]">
               Depth Sounding & Time Series Profile
             </h3>
           </div>
-          <p className="text-xs font-mono text-slate-400 mt-0.5">
+          <p className="text-xs font-mono text-slate-500 mt-0.5">
             Float {selectedFloat.id} ({selectedFloat.region}) • CTD Telemetry
           </p>
         </div>
 
         {/* Chart View Switcher & Parameter Tabs */}
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1 p-1 rounded-lg bg-[#07090e] border border-white/[0.08] text-xs">
+          <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-100 border border-slate-200 text-xs">
             <button
               onClick={() => setChartType('depth')}
               className={`px-2.5 py-1 rounded-md font-mono text-xs transition-colors ${
                 chartType === 'depth'
-                  ? 'bg-slate-800 text-white font-medium border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-slate-900 font-semibold shadow-xs border border-slate-200'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Depth Sounding (0–2000m)
@@ -203,8 +203,8 @@ export default function OceanCharts({ selectedFloat }) {
               onClick={() => setChartType('trend')}
               className={`px-2.5 py-1 rounded-md font-mono text-xs transition-colors ${
                 chartType === 'trend'
-                  ? 'bg-slate-800 text-white font-medium border border-white/10'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-white text-slate-900 font-semibold shadow-xs border border-slate-200'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               Time Series
@@ -212,13 +212,13 @@ export default function OceanCharts({ selectedFloat }) {
           </div>
 
           {chartType === 'depth' && (
-            <div className="flex items-center gap-1 p-1 rounded-lg bg-[#07090e] border border-white/[0.08] text-xs">
+            <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-100 border border-slate-200 text-xs">
               <button
                 onClick={() => setActiveParam('temperature')}
                 className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
                   activeParam === 'temperature'
-                    ? 'bg-slate-800 text-white font-medium'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-white text-slate-900 font-semibold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Temperature
@@ -227,8 +227,8 @@ export default function OceanCharts({ selectedFloat }) {
                 onClick={() => setActiveParam('salinity')}
                 className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
                   activeParam === 'salinity'
-                    ? 'bg-slate-800 text-white font-medium'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-white text-slate-900 font-semibold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Salinity
@@ -237,8 +237,8 @@ export default function OceanCharts({ selectedFloat }) {
                 onClick={() => setActiveParam('oxygen')}
                 className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
                   activeParam === 'oxygen'
-                    ? 'bg-slate-800 text-white font-medium'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-white text-slate-900 font-semibold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Oxygen
@@ -247,8 +247,8 @@ export default function OceanCharts({ selectedFloat }) {
                 onClick={() => setActiveParam('all')}
                 className={`px-2 py-1 rounded-md font-mono text-[11px] transition-colors ${
                   activeParam === 'all'
-                    ? 'bg-slate-800 text-white font-medium'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-white text-slate-900 font-semibold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Combined
@@ -259,7 +259,7 @@ export default function OceanCharts({ selectedFloat }) {
       </div>
 
       {/* Plotly Chart Canvas */}
-      <div className="w-full h-[440px] bg-[#07090e] rounded-xl border border-white/[0.06] p-1 overflow-hidden">
+      <div className="w-full h-[440px] bg-slate-50 rounded-xl border border-slate-200 p-1 overflow-hidden">
         {chartType === 'depth' ? (
           <Plot
             data={depthPlotData}

@@ -33,27 +33,27 @@ export default function FilterSidebar({
   };
 
   return (
-    <div className="rounded-2xl bg-[#0c1017] border border-white/[0.08] p-5 shadow-sm space-y-4 text-xs text-slate-300">
+    <div className="rounded-2xl bg-white border border-slate-200 p-5 shadow-xs space-y-4 text-xs text-slate-700">
       {/* Filter Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-        <div className="flex items-center gap-2 text-white font-semibold text-sm">
-          <Filter className="w-4 h-4 text-slate-400" />
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div className="flex items-center gap-2 text-slate-900 font-semibold text-sm">
+          <Filter className="w-4 h-4 text-slate-500" />
           <span>Filters</span>
         </div>
-        <span className="font-mono text-[10px] text-slate-400 px-2 py-0.5 rounded bg-slate-900 border border-white/[0.06]">
+        <span className="font-mono text-[10px] text-slate-600 px-2 py-0.5 rounded bg-slate-100 border border-slate-200">
           {totalResults} matching
         </span>
       </div>
 
       {/* 1. Ocean Basin Selector */}
       <div className="space-y-1">
-        <label className="text-slate-400 font-mono text-[11px] block">
+        <label className="text-slate-600 font-mono text-[11px] block">
           Ocean Basin
         </label>
         <select
           value={filters.region}
           onChange={handleRegionChange}
-          className="w-full px-3 py-1.5 rounded-lg bg-[#07090e] border border-white/[0.1] text-slate-200 text-xs font-mono focus:outline-none focus:border-slate-400 transition-colors"
+          className="w-full px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-xs font-mono focus:outline-none focus:border-slate-400 transition-colors"
         >
           <option value="all">All Global Basins</option>
           {OCEAN_REGIONS.slice(1).map((reg) => (
@@ -66,7 +66,7 @@ export default function FilterSidebar({
 
       {/* 2. Float ID Query */}
       <div className="space-y-1">
-        <label className="text-slate-400 font-mono text-[11px] block">
+        <label className="text-slate-600 font-mono text-[11px] block">
           WMO Float Identifier
         </label>
         <input
@@ -74,13 +74,13 @@ export default function FilterSidebar({
           placeholder="e.g. 2902634 or WMO-4902183"
           value={filters.floatIdQuery}
           onChange={(e) => handleInputChange('floatIdQuery', e.target.value)}
-          className="w-full px-3 py-1.5 rounded-lg bg-[#07090e] border border-white/[0.1] text-slate-200 placeholder-slate-600 text-xs font-mono focus:outline-none focus:border-slate-400"
+          className="w-full px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs font-mono focus:outline-none focus:border-slate-400"
         />
       </div>
 
       {/* 3. Observation Date Range */}
       <div className="space-y-1">
-        <label className="text-slate-400 font-mono text-[11px] block">
+        <label className="text-slate-600 font-mono text-[11px] block">
           Date Range
         </label>
         <div className="grid grid-cols-2 gap-2">
@@ -88,22 +88,22 @@ export default function FilterSidebar({
             type="date"
             value={filters.startDate}
             onChange={(e) => handleInputChange('startDate', e.target.value)}
-            className="w-full px-2 py-1 rounded-md bg-[#07090e] border border-white/[0.1] text-slate-300 text-[11px] font-mono focus:outline-none focus:border-slate-400"
+            className="w-full px-2 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 text-[11px] font-mono focus:outline-none focus:border-slate-400"
           />
           <input
             type="date"
             value={filters.endDate}
             onChange={(e) => handleInputChange('endDate', e.target.value)}
-            className="w-full px-2 py-1 rounded-md bg-[#07090e] border border-white/[0.1] text-slate-300 text-[11px] font-mono focus:outline-none focus:border-slate-400"
+            className="w-full px-2 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 text-[11px] font-mono focus:outline-none focus:border-slate-400"
           />
         </div>
       </div>
 
       {/* 4. Minimum Profile Depth */}
       <div className="space-y-1">
-        <div className="flex items-center justify-between text-slate-400 font-mono text-[11px]">
+        <div className="flex items-center justify-between text-slate-600 font-mono text-[11px]">
           <span>Min Depth</span>
-          <span className="text-slate-200 font-medium">{filters.minDepth}m</span>
+          <span className="text-slate-900 font-medium">{filters.minDepth}m</span>
         </div>
         <input
           type="range"
@@ -112,9 +112,9 @@ export default function FilterSidebar({
           step="100"
           value={filters.minDepth}
           onChange={(e) => handleInputChange('minDepth', parseInt(e.target.value, 10))}
-          className="w-full accent-slate-300 cursor-pointer"
+          className="w-full accent-slate-700 cursor-pointer"
         />
-        <div className="flex justify-between text-[10px] font-mono text-slate-500">
+        <div className="flex justify-between text-[10px] font-mono text-slate-400">
           <span>0m</span>
           <span>1,000m</span>
           <span>2,000m</span>
@@ -123,34 +123,34 @@ export default function FilterSidebar({
 
       {/* 5. Parameter Selection */}
       <div className="space-y-1.5">
-        <span className="text-slate-400 font-mono text-[11px] block">
+        <span className="text-slate-600 font-mono text-[11px] block">
           Parameters Included
         </span>
         <div className="space-y-1">
-          <label className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-white">
+          <label className="flex items-center gap-2 cursor-pointer text-slate-700 hover:text-slate-900">
             <input
               type="checkbox"
               checked={filters.parameters.temperature}
               onChange={() => handleParameterToggle('temperature')}
-              className="rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-0"
+              className="rounded border-slate-300 text-sky-600 focus:ring-0"
             />
             <span>Temperature Profile (°C)</span>
           </label>
-          <label className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-white">
+          <label className="flex items-center gap-2 cursor-pointer text-slate-700 hover:text-slate-900">
             <input
               type="checkbox"
               checked={filters.parameters.salinity}
               onChange={() => handleParameterToggle('salinity')}
-              className="rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-0"
+              className="rounded border-slate-300 text-sky-600 focus:ring-0"
             />
             <span>Practical Salinity (PSU)</span>
           </label>
-          <label className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-white">
+          <label className="flex items-center gap-2 cursor-pointer text-slate-700 hover:text-slate-900">
             <input
               type="checkbox"
               checked={filters.parameters.oxygen}
               onChange={() => handleParameterToggle('oxygen')}
-              className="rounded border-slate-700 bg-slate-900 text-sky-500 focus:ring-0"
+              className="rounded border-slate-300 text-sky-600 focus:ring-0"
             />
             <span>Dissolved Oxygen (ml/L)</span>
           </label>
@@ -159,13 +159,13 @@ export default function FilterSidebar({
 
       {/* 6. Quality Filter */}
       <div className="space-y-1">
-        <label className="text-slate-400 font-mono text-[11px] block">
+        <label className="text-slate-600 font-mono text-[11px] block">
           Quality Control
         </label>
         <select
           value={filters.qualityFilter}
           onChange={(e) => handleInputChange('qualityFilter', e.target.value)}
-          className="w-full px-3 py-1.5 rounded-lg bg-[#07090e] border border-white/[0.1] text-slate-200 text-xs font-mono focus:outline-none focus:border-slate-400"
+          className="w-full px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-xs font-mono focus:outline-none focus:border-slate-400"
         >
           <option value="all">All QC Stages (Level 1 & 2)</option>
           <option value="level1">Level 1 - Calibrated & Validated Only</option>
@@ -176,7 +176,7 @@ export default function FilterSidebar({
       <div className="pt-2">
         <button
           onClick={onResetFilters}
-          className="w-full py-2 rounded-lg border border-white/[0.08] hover:border-white/20 bg-slate-900/60 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-medium flex items-center justify-center gap-2 transition-colors"
+          className="w-full py-2 rounded-lg border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-medium flex items-center justify-center gap-2 transition-colors"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset Filters</span>

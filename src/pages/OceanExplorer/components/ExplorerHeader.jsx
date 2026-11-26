@@ -1,15 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Waves,
   Compass,
   History,
   Scale,
   Wind,
   Bot,
-  User,
   LogOut,
-  Radio,
 } from 'lucide-react';
 import { useAuth } from '../../../context/AuthContext';
 
@@ -25,24 +22,22 @@ export default function ExplorerHeader({ activeTab = 'explorer', setActiveTab })
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#070a10]/95 backdrop-blur-xl border-b border-white/[0.08] px-4 sm:px-6 lg:px-8 py-3">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 lg:px-8 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Left: Brand Identity */}
         <div className="flex items-center gap-6">
           <Link
             to="/"
-            className="flex items-center gap-2.5 text-white hover:opacity-90 transition-opacity"
+            className="flex items-center gap-2.5 text-slate-900 hover:opacity-90 transition-opacity"
             title="Return to Home Overview"
           >
-            <div className="w-8 h-8 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center text-slate-200">
-              <Waves className="w-4 h-4 text-sky-400" />
-            </div>
+            <img src="/logo.jpg" alt="FloatChat" className="w-9 h-9 rounded-lg object-cover shadow-sm" />
             <div className="flex items-baseline gap-1.5">
-              <span className="text-base font-bold tracking-tight text-white font-['Outfit',sans-serif]">
+              <span className="text-base font-bold tracking-tight text-slate-900 font-['Outfit',sans-serif]">
                 FloatChat
               </span>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 font-medium">
-                Console
+              <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 font-medium">
+                Explorer
               </span>
             </div>
           </Link>
@@ -58,11 +53,11 @@ export default function ExplorerHeader({ activeTab = 'explorer', setActiveTab })
                   onClick={() => setActiveTab && setActiveTab(item.id)}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-slate-800 text-white border border-white/10 font-semibold'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+                      ? 'bg-slate-100 text-slate-900 border border-slate-200 font-semibold'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-sky-400' : 'text-slate-500'}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-sky-600' : 'text-slate-400'}`} />
                   <span>{item.label}</span>
                 </button>
               );
@@ -72,18 +67,18 @@ export default function ExplorerHeader({ activeTab = 'explorer', setActiveTab })
 
         {/* Right: Live Telemetry Indicator & User Profile */}
         <div className="flex items-center gap-4">
-          <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-md bg-slate-900 border border-white/[0.06] text-[11px] font-mono text-slate-300">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span className="text-slate-400">ARGO GDAC:</span>
-            <span className="text-emerald-400 font-medium">ONLINE</span>
+          <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-[11px] font-mono text-slate-700">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span className="text-slate-500">ARGO GDAC:</span>
+            <span className="text-emerald-700 font-medium">ONLINE</span>
           </div>
 
-          <div className="flex items-center gap-2.5 pl-3 border-l border-white/[0.08]">
-            <div className="w-7 h-7 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-slate-200 font-semibold text-xs">
+          <div className="flex items-center gap-2.5 pl-3 border-l border-slate-200">
+            <div className="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 font-semibold text-xs">
               {user?.name?.charAt(0).toUpperCase() || 'R'}
             </div>
             <div className="hidden sm:flex flex-col text-left">
-              <span className="text-xs font-medium text-slate-200 leading-tight">
+              <span className="text-xs font-medium text-slate-800 leading-tight">
                 {user?.name || 'Researcher'}
               </span>
               <span className="text-[10px] text-slate-500 font-mono">
@@ -94,7 +89,7 @@ export default function ExplorerHeader({ activeTab = 'explorer', setActiveTab })
               <button
                 onClick={logout}
                 title="Sign out"
-                className="p-1.5 rounded-md text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors ml-1"
+                className="p-1.5 rounded-md text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors ml-1"
               >
                 <LogOut className="w-3.5 h-3.5" />
               </button>

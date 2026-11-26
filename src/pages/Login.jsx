@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Waves, Eye, EyeOff, Lock, Mail, ArrowRight, Loader2, Sparkles, Compass } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, ArrowRight, Loader2, Sparkles, Compass } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 
@@ -64,7 +64,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-[#030b1a] text-slate-100">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-[#0a1628] text-slate-100">
       {/* Left Column: Atmospheric Ocean Imagery & Storytelling (Desktop) */}
       <div className="relative hidden lg:flex lg:w-1/2 flex-col justify-between p-12 overflow-hidden bg-cover bg-center"
         style={{
@@ -72,17 +72,12 @@ export default function Login() {
         }}
       >
         {/* Deep blue ocean overlay */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#020b18] via-[#031535]/85 to-[#042456]/70 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-depth-grid opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#020b18] via-[#0a1e3d]/90 to-[#0d2f5e]/75 mix-blend-multiply" />
 
         {/* Brand Header */}
         <div className="relative z-10">
           <Link to="/" className="inline-flex items-center gap-3 text-white group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 p-0.5 shadow-lg shadow-cyan-500/30">
-              <div className="w-full h-full bg-[#051329] rounded-[10px] flex items-center justify-center">
-                <Waves className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
-              </div>
-            </div>
+            <img src="/logo.jpg" alt="FloatChat" className="w-12 h-12 rounded-xl object-cover shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300" />
             <div className="flex flex-col">
               <span className="text-2xl font-bold tracking-tight font-['Outfit',sans-serif]">
                 Float<span className="text-cyan-400">Chat</span>
@@ -106,10 +101,10 @@ export default function Login() {
           </h2>
 
           <p className="text-slate-300 text-sm leading-relaxed">
-            Access calibrated temperature anomalies, salinity thermoclines, and depth profiles from over 3,900 autonomous ARGO floats traversing the world’s oceans.
+            Access calibrated temperature anomalies, salinity thermoclines, and depth profiles from over 3,900 autonomous ARGO floats traversing the world's oceans.
           </p>
 
-          <div className="p-4 rounded-xl bg-[#06152d]/85 backdrop-blur-md border border-cyan-500/20 shadow-xl flex items-center gap-4">
+          <div className="p-4 rounded-xl bg-[#0a1e3d]/85 backdrop-blur-md border border-cyan-500/20 shadow-xl flex items-center gap-4">
             <div className="w-10 h-10 rounded-lg bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-300 shrink-0">
               <Compass className="w-5 h-5" />
             </div>
@@ -126,13 +121,13 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Right Column: Clean Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-[#030b1a] relative">
+      {/* Right Column: Login Form on Deep Blue */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-16 bg-[#0a1628] relative">
         <div className="w-full max-w-md space-y-8">
           {/* Mobile Brand Link */}
-          <div className="lg:hidden flex items-center justify-between pb-6 border-b border-slate-800">
+          <div className="lg:hidden flex items-center justify-between pb-6 border-b border-slate-700">
             <Link to="/" className="flex items-center gap-2 text-white">
-              <Waves className="w-6 h-6 text-cyan-400" />
+              <img src="/logo.jpg" alt="FloatChat" className="w-8 h-8 rounded-lg object-cover" />
               <span className="font-bold text-lg font-['Outfit',sans-serif]">FloatChat</span>
             </Link>
             <Link to="/" className="text-xs text-cyan-400 hover:underline">Return to Home</Link>
@@ -164,7 +159,7 @@ export default function Login() {
                 Email Address
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
@@ -174,7 +169,7 @@ export default function Login() {
                   placeholder="oceanographer@floatchat.org"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#071731] border border-cyan-500/20 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0d2140] border border-slate-600/50 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
                 />
               </div>
             </div>
@@ -194,7 +189,7 @@ export default function Login() {
                 </button>
               </div>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
@@ -204,7 +199,7 @@ export default function Login() {
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#071731] border border-cyan-500/20 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#0d2140] border border-slate-600/50 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
                 />
                 <button
                   type="button"
@@ -224,7 +219,7 @@ export default function Login() {
                   name="rememberMe"
                   checked={formData.rememberMe}
                   onChange={handleChange}
-                  className="rounded border-slate-700 bg-[#071731] text-cyan-500 focus:ring-cyan-400 focus:ring-offset-0"
+                  className="rounded border-slate-600 bg-[#0d2140] text-cyan-500 focus:ring-cyan-400 focus:ring-offset-0"
                 />
                 <span>Remember this device for 30 days</span>
               </label>
@@ -251,8 +246,8 @@ export default function Login() {
 
             {/* Divider */}
             <div className="relative my-4 flex items-center justify-center">
-              <div className="border-t border-slate-800 w-full" />
-              <span className="bg-[#030b1a] px-3 text-[11px] uppercase tracking-wider text-slate-500 absolute font-medium">
+              <div className="border-t border-slate-700 w-full" />
+              <span className="bg-[#0a1628] px-3 text-[11px] uppercase tracking-wider text-slate-500 absolute font-medium">
                 Or continue with
               </span>
             </div>
@@ -261,7 +256,7 @@ export default function Login() {
             <button
               type="button"
               onClick={handleGoogleAuth}
-              className="w-full py-2.5 px-4 rounded-xl border border-slate-800 hover:border-slate-700 bg-[#06152d]/50 hover:bg-[#06152d] text-slate-300 hover:text-white text-xs font-medium flex items-center justify-center gap-2.5 transition-all"
+              className="w-full py-2.5 px-4 rounded-xl border border-slate-600/50 hover:border-slate-500 bg-[#0d2140]/60 hover:bg-[#0d2140] text-slate-300 hover:text-white text-xs font-medium flex items-center justify-center gap-2.5 transition-all"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
