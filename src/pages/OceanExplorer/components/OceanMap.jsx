@@ -110,6 +110,26 @@ export default function OceanMap({
 }) {
   const [showWelcome, setShowWelcome] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeBasemap, setActiveBasemap] = useState('ocean'); // 'ocean' | 'satellite' | 'osm'
+
+  const basemapConfigs = {
+    ocean: {
+      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
+      referenceUrl: 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}',
+      attribution: '&copy; Esri, GEBCO, NOAA, National Geographic, DeLorme, HERE, Geonames.org',
+      maxZoom: 13,
+    },
+    satellite: {
+      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      attribution: '&copy; Esri, Maxar, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN',
+      maxZoom: 18,
+    },
+    osm: {
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
+    },
+  };
 
   // Handle Search Input (Region name or coordinate lat, lng)
   const handleSearch = (e) => {
@@ -233,6 +253,43 @@ export default function OceanMap({
             </button>
           </div>
 
+          {/* Basemap Style Switcher (No API Key Required) */}
+          <div className="hidden sm:flex items-center gap-1 p-1 rounded-xl bg-[#020617]/90 border border-cyan-500/25 backdrop-blur-xl shadow-xl text-xs">
+            <button
+              onClick={() => setActiveBasemap('ocean')}
+              className={`px-2 py-1 rounded-lg font-mono transition-all ${
+                activeBasemap === 'ocean'
+                  ? 'bg-teal-500 text-black font-bold'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="NOAA/GEBCO Ocean Bathymetry (No API key needed)"
+            >
+              Ocean Base
+            </button>
+            <button
+              onClick={() => setActiveBasemap('satellite')}
+              className={`px-2 py-1 rounded-lg font-mono transition-all ${
+                activeBasemap === 'satellite'
+                  ? 'bg-teal-500 text-black font-bold'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="Esri World Imagery Satellite (No API key needed)"
+            >
+              Satellite
+            </button>
+            <button
+              onClick={() => setActiveBasemap('osm')}
+              className={`px-2 py-1 rounded-lg font-mono transition-all ${
+                activeBasemap === 'osm'
+                  ? 'bg-teal-500 text-black font-bold'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+              title="OpenStreetMap Standard (No API key needed)"
+            >
+              OSM
+            </button>
+          </div>
+
           {/* Reset Global View Button */}
           <button
             onClick={onResetGlobalView}
@@ -277,13 +334,21 @@ export default function OceanMap({
       >
         <MapRecenter center={mapCenter} zoom={mapZoom} />
 
-        {/* High-Contrast Scientific Dark Ocean Tiles */}
+        {/* High-Contrast Scientific Ocean Tiles (100% Free, No API Key Required) */}
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://argo.ucsd.edu/">ARGO GDAC</a>'
-          subdomains="abcd"
-          maxZoom={19}
+          key={activeBasemap}
+          url={basemapConfigs[activeBasemap].url}
+          attribution={basemapConfigs[activeBasemap].attribution}
+          maxZoom={basemapConfigs[activeBasemap].maxZoom}
         />
+        {activeBasemap === 'ocean' && (
+          <TileLayer
+            key="ocean-reference"
+            url={basemapConfigs.ocean.referenceUrl}
+            attribution=""
+            maxZoom={13}
+          />
+        )}
 
         {/* Selected Float Trajectory Polyline */}
         {trajectoryPositions.length > 1 && (
